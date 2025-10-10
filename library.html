@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Nook - Café Clover</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-emerald-50 text-slate-800 font-serif">
+  <!-- Sidebar -->
+  <aside class="fixed top-0 left-0 h-full w-52 bg-emerald-100 p-5 flex flex-col justify-between shadow-md">
+    <div>
+      <h1 class="text-2xl font-bold text-emerald-700 mb-6">☘️ Café Clover</h1>
+      <nav class="space-y-3">
+        <a href="index.html" class="block hover:text-emerald-600">🏠 Home</a>
+        <a href="library.html" class="block font-semibold text-emerald-700">📚 Book Nook</a>
+        <a href="about.html" class="block hover:text-emerald-600">💫 About</a>
+      </nav>
+    </div>
+    <p class="text-xs text-emerald-600">© 2025 Café Clover</p>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="ml-56 min-h-screen flex flex-col items-center justify-center space-y-6">
+    <h2 class="text-3xl font-bold text-emerald-800">📖 Cozy Book Nook</h2>
+    <p class="text-slate-700 text-center max-w-md">
+      Order a “book” from our cozy menu and get a random recommendation served fresh ☕
+    </p>
+    <button
+      onclick="suggestBook()"
+      class="bg-emerald-600 text-white px-5 py-2 rounded-full shadow-md hover:bg-emerald-700 transition"
+    >
+      🍵 Order a Book
+    </button>
+    <div id="book" class="mt-4 text-lg text-emerald-700 font-medium"></div>
+  </main>
+
+  <script>
+    const books = [
+      "📘 'The Night Circus' — Erin Morgenstern",
+      "📙 'Before the Coffee Gets Cold' — Toshikazu Kawaguchi",
+      "📗 'The House in the Cerulean Sea' — TJ Klune",
+      "📕 'Eleanor Oliphant Is Completely Fine' — Gail Honeyman",
+      "📔 'Little Women' — Louisa May Alcott"
+    ];
+    function suggestBook() {
+      const random = books[Math.floor(Math.random() * books.length)];
+      document.getElementById('book').textContent = random;
+    }
+  </script>
+</body>
+</html>
