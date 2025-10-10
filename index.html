@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>꒰ Cloverbell ꒱</title>
+  <!-- Tailwind CSS CDN (for development) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* You can override or add custom styles here */
+    body {
+      /* placeholder, you can add bg image via Tailwind or here */
+    }
+  </style>
+</head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>꒰ Cloverbell ꒱</title>
+
+  <!-- ✅ Tailwind CSS via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="min-h-screen bg-[url('images/bacground.jpeg')] text-gray-800 flex flex-col items-center px-4 py-8">
+
+  <main class=" flex justify-center w-full h-full">
+    <div class="bg-[url('images/baclground1.png')] bg-cover bg-center px-16 py-20 w-3/4 rounded-lg shadow-3xl">
+
+    
+    <div class="flex justify-center gap-20 mr-32">
+        <div class="p-4 py-12 mr-16 border-r border-gray-400 bg- bg-cover bg-center ">
+            <nav>
+                <div>
+                    <img src="images/bug_lady.jpeg" alt="bug lady tammana" class="w-32 h-32 object-cover rounded-md mx-auto mb-4" />
+                </div>
+                <ul class="space-y-8 mt-8 ml-8 text-lg sm:text-xl font-serif  pr-6">
+                    <li><a href="index.html">home</a></li>
+                    <li>about</li>
+                    <li>cafe</li>
+                    <li>library</li>
+                </ul>
+            </nav>
+        </div>
+        <div>
+            <h1 class="text-center text-3xl sm:text-4xl font-serif mb-4">꒰ Cloverbell ꒱</h1>
+            <p class="text-center text-sm sm:text-base mb-6">
+              ꒰ <span id="update-date">01.10.2025</span> ꒱
+              <a href="#" class="underline">Links page</a> updated!
+              <span class="text-xs block sm:inline">you may need to clear your cache to see the update.</span>
+            </p>
+            <div class="border-t border-gray-400 my-6"></div>
+            <div class="space-y-6">
+              <div>
+                <p class="text-base sm:text-lg">
+                  ꒰ <span class="entry-date">07.21.2024</span> ꒱ New
+                  <a href="#" class="underline">diary entry</a>. I went to a jfashion swap meet!
+                </p>
+              </div>
+              <div>
+                <p class="text-base sm:text-lg">
+                  ꒰ <span class="entry-date">06.30.2024</span> ꒱ New
+                  <a href="#" class="underline">diary entry</a>. Recap of the past month.
+                </p>
+              </div>
+            </div>
+            <div class="border-t border-gray-400 my-6"></div>
+            <div class="text-center space-y-2">
+              <p>click me for a souvenir! <a href="#" class="underline">Link</a></p>
+              <p>꒰ <a href="https://theflowering.neocities.org" class="underline">flowering</a> ꒱ clover</p>
+              <div class="flex justify-center space-x-2 mt-4">
+                <img src="#" alt="img1" class="w-12 h-12 object-cover" />
+                <img src="#" alt="img2" class="w-12 h-12 object-cover" />
+                <img src="#" alt="img3" class="w-12 h-12 object-cover" />
+                <img src="#" alt="img4" class="w-12 h-12 object-cover" />
+              </div>
+              <div class="mt-6">
+                <audio id="bg-audio" controls></audio>
+                <div class="mt-2 text-sm">
+                  <span id="audio-time">00:00</span>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+ </div>
+  </main>
+
+  <script>
+    const audio = document.getElementById('bg-audio');
+    const timeDisplay = document.getElementById('audio-time');
+    audio.addEventListener('timeupdate', () => {
+      const secs = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
+      const mins = Math.floor(audio.currentTime / 60).toString().padStart(2, '0');
+      timeDisplay.textContent = `${mins}:${secs}`;
+    });
+  </script>
+</body>
+</html>
+
+</html>
