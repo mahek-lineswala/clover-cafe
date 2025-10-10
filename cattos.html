@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>꒰ Cloverbell — <3 Cattos ꒱</title>
+  <link rel="icon" href="./assets/images/cloveeee.jpg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .float { animation: float 3s ease-in-out infinite; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { animation: fadeIn 1.2s ease-in-out; }
+
+    @keyframes pawBounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+    .paw { animation: pawBounce 2s infinite ease-in-out; }
+
+    .glass {
+      background-color: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(8px);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-[url('assets/images/background.jpeg')] bg-cover bg-center text-gray-800 flex flex-col items-center px-4 py-8">
+
+  <main class="flex justify-center w-full h-full">
+    <div class="bg-[url('assets/images/background1.png')] bg-cover bg-center px-16 py-20 w-3/4 rounded-lg shadow-3xl fade-in shadow-dream backdrop-blur-sm">
+
+      <div class="flex justify-center gap-20 mr-32">
+        <!-- Sidebar -->
+        <div class="p-4 py-12 mr-16 border-r border-gray-400">
+          <nav>
+            <div>
+              <img src="assets/images/bug_lady.jpeg" alt="bug lady tammana" class="w-32 h-32 object-cover rounded-md mx-auto mb-4 float" />
+            </div>
+            <ul class="space-y-8 mt-8 ml-8 text-lg sm:text-xl font-serif pr-6">
+              <li><a href="index.html" class="hover:text-green-700 transition-colors">home</a></li>
+              <li><a href="get-working.html" class="hover:text-green-700 transition-colors">get working</a></li>
+              <li><a href="book-nook.html" class="hover:text-green-700 transition-colors">book nook</a></li>
+              <li><a href="creator.html" class="hover:text-green-700 transition-colors">creator</a></li>
+              <li><a href="guest-book.html" class="hover:text-green-700 transition-colors">guest book</a></li>
+              <li><a href="cattos.html" class="text-green-700">&lt;3 cattos</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Main content -->
+        <div class="max-w-2xl">
+          <h1 class="text-center text-4xl font-serif mb-4">꒰ <3 Cattos ꒱</h1>
+          <p class="text-center mb-8 text-base sm:text-lg italic">
+            Paws, purrs, and cozy cuddles 🐾  
+          </p>
+
+          <div class="border-t border-gray-400 my-6"></div>
+
+          <!-- Cat Gallery -->
+          <section class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="glass rounded-lg overflow-hidden shadow hover:shadow-lg transition hover:scale-105 duration-300 fade-in">
+              <img src="assets/images/cat1.jpg" alt="Sleepy Cat" class="w-full h-64 object-cover" />
+              <p class="p-3 text-center font-serif text-gray-700">Sleepy Sunday vibes ☁️</p>
+            </div>
+            <div class="glass rounded-lg overflow-hidden shadow hover:shadow-lg transition hover:scale-105 duration-300 fade-in">
+              <img src="assets/images/cat2.jpg" alt="Curious Cat" class="w-full h-64 object-cover" />
+              <p class="p-3 text-center font-serif text-gray-700">Caught mid-pounce! 🐾</p>
+            </div>
+            <div class="glass rounded-lg overflow-hidden shadow hover:shadow-lg transition hover:scale-105 duration-300 fade-in">
+              <img src="assets/images/cat3.jpg" alt="Window Cat" class="w-full h-64 object-cover" />
+              <p class="p-3 text-center font-serif text-gray-700">Dreaming by the window 🌙</p>
+            </div>
+            <div class="glass rounded-lg overflow-hidden shadow hover:shadow-lg transition hover:scale-105 duration-300 fade-in">
+              <img src="assets/images/cat4.jpg" alt="Happy Cat" class="w-full h-64 object-cover" />
+              <p class="p-3 text-center font-serif text-gray-700">A perfect furball of joy ✨</p>
+            </div>
+          </section>
+
+          <div class="border-t border-gray-400 my-6"></div>
+
+          <!-- Playful button -->
+          <div class="text-center space-y-3">
+            <button id="purrButton" class="px-4 py-2 bg-pink-200 hover:bg-pink-300 transition rounded-lg font-serif shadow paw">
+              press me for a purr 💖
+            </button>
+            <audio id="purrSound" src="assets/sounds/purr.mp3"></audio>
+            <p id="purrText" class="text-gray-600 text-sm hidden">the kitty says “mrrr~” 🐱</p>
+          </div>
+
+          <div class="border-t border-gray-400 my-6"></div>
+
+          <!-- Footer -->
+          <div class="text-center space-y-2">
+            <p>return to <a href="index.html" class="underline">home</a></p>
+            <p>꒰ <a href="https://theflowering.neocities.org" class="underline">flowering</a> ꒱ clover</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const btn = document.getElementById('purrButton');
+    const sound = document.getElementById('purrSound');
+    const text = document.getElementById('purrText');
+
+    btn.addEventListener('click', () => {
+      sound.currentTime = 0;
+      sound.play();
+      text.classList.remove('hidden');
+      setTimeout(() => text.classList.add('hidden'), 3000);
+    });
+  </script>
+</body>
+</html>

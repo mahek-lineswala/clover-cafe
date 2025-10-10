@@ -3,43 +3,60 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Café Clover</title>
+  <title>Café — ꒰ Cloverbell ꒱</title>
+  <link rel="icon" href="./images/cloveeee.jpg" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+    .fade-in { animation: fadeIn 1s ease-in; }
+    @keyframes pulseGlow {
+      0%, 100% { filter: drop-shadow(0 0 4px #86efac); }
+      50% { filter: drop-shadow(0 0 12px #4ade80); }
+    }
+    .glow { animation: pulseGlow 2.5s ease-in-out infinite; }
+  </style>
 </head>
-<body class="bg-emerald-50 text-slate-800 font-serif">
-  <!-- Sidebar -->
-  <aside class="fixed top-0 left-0 h-full w-52 bg-emerald-100 p-5 flex flex-col justify-between shadow-md">
-    <div>
-      <h1 class="text-2xl font-bold text-emerald-700 mb-6">☘️ Café Clover</h1>
-      <nav class="space-y-3">
-        <a href="index.html" class="block font-semibold text-emerald-700">🏠 Home</a>
-        <a href="library.html" class="block hover:text-emerald-600">📚 Book Nook</a>
-        <a href="about.html" class="block hover:text-emerald-600">💫 About</a>
-      </nav>
+<body class="min-h-screen bg-[url('images/bacground.jpeg')] bg-cover bg-center text-gray-800 flex flex-col items-center px-4 py-8 font-serif">
+
+  <main class="flex justify-center w-full h-full">
+    <div class="bg-[url('images/baclground1.png')] bg-cover bg-center px-16 py-20 w-3/4 rounded-lg shadow-3xl flex gap-20">
+
+      <!-- Sidebar -->
+      <div class="p-4 py-12 mr-16 border-r border-gray-400 bg-cover bg-center fade-in">
+        <nav>
+          <div>
+            <img src="images/bug_lady.jpeg" alt="bug lady tammana" class="w-32 h-32 object-cover rounded-md mx-auto mb-4 hover:scale-105 transition-transform duration-300" />
+          </div>
+          <ul class="space-y-8 mt-8 ml-8 text-lg sm:text-xl font-serif pr-6">
+            <li><a href="index.html" class="hover:text-emerald-600 transition">home</a></li>
+            <li><a href="about.html" class="hover:text-emerald-600 transition">about</a></li>
+            <li><a href="cafe.html" class="font-semibold text-emerald-700 underline underline-offset-4">cafe</a></li>
+            <li><a href="library.html" class="hover:text-emerald-600 transition">library</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <div class="flex flex-col items-center justify-center text-center fade-in">
+        <h1 class="text-4xl font-bold text-emerald-800 mb-6">Welcome to Café Clover ☕</h1>
+        <p class="text-lg max-w-md mb-8">
+          A soft web café for your focus and peace — where gentle sound, warmth,
+          and ambient charm meet.
+        </p>
+        <button onclick="playChime()" class="bg-emerald-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-emerald-700 transition glow">
+          🍀 Tap the Clover
+        </button>
+        <audio id="chime" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_fbb848f116.mp3?filename=cute-notification-109228.mp3"></audio>
+      </div>
+
     </div>
-    <p class="text-xs text-emerald-600">© 2025 Café Clover</p>
-  </aside>
-
-  <!-- Main Content -->
-  <main class="ml-56 h-screen flex flex-col justify-center items-center space-y-6">
-    <h2 class="text-4xl font-bold text-emerald-800">Welcome to Café Clover ☕</h2>
-    <p class="max-w-lg text-center text-slate-700">
-      A soft little café corner on the web — where focus meets comfort,
-      and ideas bloom like clovers 🌿
-    </p>
-    <button
-      class="mt-4 bg-emerald-600 text-white px-5 py-2 rounded-full shadow-md hover:bg-emerald-700 transition"
-      onclick="playChime()"
-    >
-      🍀 Tap the Clover
-    </button>
   </main>
-
-  <audio id="chime" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_fbb848f116.mp3?filename=cute-notification-109228.mp3"></audio>
 
   <script>
     function playChime() {
-      document.getElementById('chime').play();
+      const audio = document.getElementById('chime');
+      audio.currentTime = 0;
+      audio.play();
     }
   </script>
 </body>

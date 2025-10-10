@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>꒰ Cloverbell — Creator ꒱</title>
+  <link rel="icon" href="./assets/images/cloveeee.jpg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .float { animation: float 3s ease-in-out infinite; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { animation: fadeIn 1.5s ease-in-out; }
+
+    textarea {
+      background-color: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(6px);
+      resize: none;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-[url('assets/images/background.jpeg')] bg-cover bg-center text-gray-800 flex flex-col items-center px-4 py-8">
+
+  <main class="flex justify-center w-full h-full">
+    <div class="bg-[url('assets/images/background1.png')] bg-cover bg-center px-16 py-20 w-3/4 rounded-lg shadow-3xl fade-in shadow-dream backdrop-blur-md">
+
+      <div class="flex justify-center gap-20 mr-32">
+        <!-- Sidebar -->
+        <div class="p-4 py-12 mr-16 border-r border-gray-400">
+          <nav>
+            <div>
+              <img src="assets/images/bug_lady.jpeg" alt="bug lady tammana" class="w-32 h-32 object-cover rounded-md mx-auto mb-4 float" />
+            </div>
+            <ul class="space-y-8 mt-8 ml-8 text-lg sm:text-xl font-serif pr-6">
+              <li><a href="index.html" class="hover:text-green-700 transition-colors">home</a></li>
+              <li><a href="get-working.html" class="hover:text-green-700 transition-colors">get working</a></li>
+              <li><a href="book-nook.html" class="hover:text-green-700 transition-colors">book nook</a></li>
+              <li><a href="creator.html" class="text-green-700">creator</a></li>
+              <li><a href="guest-book.html" class="hover:text-green-700 transition-colors">guest book</a></li>
+              <li><a href="cattos.html" class="hover:text-green-700 transition-colors">&lt;3 cattos</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Main content -->
+        <div class="max-w-2xl">
+          <h1 class="text-center text-4xl font-serif mb-4">꒰ Creator’s Corner ꒱</h1>
+          <p class="text-center mb-8 text-base sm:text-lg italic">
+            A cozy space where ideas bloom and imagination dances 🌿
+          </p>
+
+          <div class="border-t border-gray-400 my-6"></div>
+
+          <!-- Random prompt section -->
+          <section class="text-center mb-12">
+            <h2 class="text-2xl font-serif mb-3">✨ Your Creative Prompt</h2>
+            <p id="prompt" class="text-lg font-medium text-gray-700 mb-6"></p>
+            <button id="newPromptBtn" class="px-4 py-2 bg-green-200 hover:bg-green-300 transition rounded-lg font-serif shadow">
+              new inspiration
+            </button>
+          </section>
+
+          <div class="border-t border-gray-400 my-6"></div>
+
+          <!-- Creative notepad area -->
+          <section class="text-center mb-12">
+            <h2 class="text-2xl font-serif mb-3">🪶 Jot Down Your Ideas</h2>
+            <p class="text-gray-600 mb-3">a cozy corner to scribble thoughts, sketches, or tiny poems.</p>
+            <textarea id="noteArea" rows="6" class="w-full p-4 rounded-md border border-gray-300 font-serif text-gray-800 shadow-sm"></textarea>
+            <button id="saveNoteBtn" class="mt-3 px-4 py-2 bg-green-200 hover:bg-green-300 transition rounded-lg font-serif shadow">
+              save note
+            </button>
+            <p id="saveMsg" class="mt-2 text-sm text-gray-500 hidden">saved to your local notebook 🌸</p>
+          </section>
+
+          <div class="border-t border-gray-400 my-6"></div>
+
+          <!-- Footer -->
+          <div class="text-center space-y-2">
+            <p>return to <a href="index.html" class="underline">home</a></p>
+            <p>꒰ <a href="https://theflowering.neocities.org" class="underline">flowering</a> ꒱ clover</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Random creative prompts
+    const prompts = [
+      "🌸 Write about a forgotten dream that still feels real.",
+      "🍵 Draw your favorite comfort food as if it were a fantasy creature.",
+      "🌧️ Describe the sound of rain without using the word 'rain'.",
+      "🐈 Imagine a cat running a tiny café. What would the menu be?",
+      "🌙 Write a poem about the moon’s jealousy of the sun.",
+      "🪞 Paint an emotion as if it were a landscape.",
+      "💌 Write a letter to your future self who’s living your dream life."
+    ];
+
+    const promptEl = document.getElementById('prompt');
+    const newPromptBtn = document.getElementById('newPromptBtn');
+    function showRandomPrompt() {
+      const random = Math.floor(Math.random() * prompts.length);
+      promptEl.textContent = prompts[random];
+    }
+    newPromptBtn.addEventListener('click', showRandomPrompt);
+    window.addEventListener('load', showRandomPrompt);
+
+    // Local note saving
+    const noteArea = document.getElementById('noteArea');
+    const saveBtn = document.getElementById('saveNoteBtn');
+    const saveMsg = document.getElementById('saveMsg');
+
+    saveBtn.addEventListener('click', () => {
+      localStorage.setItem('cloverNote', noteArea.value);
+      saveMsg.classList.remove('hidden');
+      setTimeout(() => saveMsg.classList.add('hidden'), 2000);
+    });
+
+    window.addEventListener('load', () => {
+      const saved = localStorage.getItem('cloverNote');
+      if (saved) noteArea.value = saved;
+    });
+  </script>
+</body>
+</html>

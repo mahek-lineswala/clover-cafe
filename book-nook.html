@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>꒰ Book Nook ꒱ | Cloverbell Café</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="icon" href="./assets/images/cloveeee.jpg" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Playfair+Display&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            title: ['"DM Serif Display"', 'serif'],
+          },
+          boxShadow: {
+            'dream': '0 4px 20px rgba(0, 0, 0, 0.25)',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: 0, transform: 'translateY(20px)' },
+              '100%': { opacity: 1, transform: 'translateY(0)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-8px)' },
+            },
+            glow: {
+              '0%, 100%': { opacity: 0.3 },
+              '50%': { opacity: 0.7 },
+            }
+          },
+          animation: {
+            fadeIn: 'fadeIn 1s ease-in-out',
+            float: 'float 3s ease-in-out infinite',
+            glow: 'glow 2s ease-in-out infinite',
+          },
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="min-h-screen bg-[url('./assets/images/background.jpeg')] bg-cover bg-fixed bg-center text-gray-800 flex flex-col items-center py-12 px-4">
+
+  <main class="flex justify-center w-full h-full animate-fadeIn relative">
+
+    <!-- Floating background icons -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute top-10 left-12 text-green-500 opacity-50 animate-float">🍀</div>
+      <div class="absolute bottom-10 right-20 text-yellow-600 opacity-50 animate-glow">📖</div>
+      <div class="absolute top-1/3 right-16 text-green-400 opacity-50 animate-float">🍀</div>
+    </div>
+
+    <!-- Main content box -->
+    <div class="bg-[url('./assets/images/background1.png')] bg-cover bg-center w-3/4 rounded-3xl shadow-dream backdrop-blur-sm px-10 py-16 border border-gray-300/60 relative z-10">
+
+      <div class="flex justify-center gap-16">
+        <!-- Sidebar -->
+        <aside class="p-6 border-r border-gray-400  rounded-l-2xl animate-float">
+          <nav class="text-center">
+            <img src="./assets/images/bug_lady.jpeg" alt="bug lady tammana"
+              class="w-32 h-32 object-cover rounded-xl mx-auto mb-6 shadow-dream transition-transform duration-300 hover:scale-110" />
+            <ul class="space-y-6 text-lg font-serif text-gray-700">
+              <li><a href="index.html" class="hover:text-green-700 transition-colors">home</a></li>
+              <li><a href="get-working.html" class="hover:text-green-700 transition-colors">get working</a></li>
+              <li><a href="book-nook.html" class="text-green-700 font-semibold">book nook</a></li>
+              <li><a href="creator.html" class="hover:text-green-700 transition-colors">creator</a></li>
+              <li><a href="guest-book.html" class="hover:text-green-700 transition-colors">guest book</a></li>
+              <li><a href="cattos.html" class="hover:text-green-700 transition-colors">&lt;3 cattos</a></li>
+            </ul>
+          </nav>
+        </aside>
+
+        <!-- Main Section -->
+        <section class="w-full text-center font-serif">
+          <h1 class="text-5xl font-title mb-8 text-green-800 drop-shadow-md animate-fadeIn">꒰ Book Nook ꒱</h1>
+          <p class="text-gray-700 text-lg italic mb-10">a cozy corner for dreamers, readers, and late-night thinkers ☕📚</p>
+
+          <!-- Books Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6">
+            <!-- Book 1 -->
+            <div class="bg-white/40 border border-gray-300 rounded-2xl shadow-dream p-4 hover:scale-105 transition-transform duration-300 animate-fadeIn">
+              <img src="./assets/images/book1.jpg" alt="book 1" class="w-full h-60 object-cover rounded-lg mb-4 shadow-md" />
+              <h2 class="text-xl font-title text-green-800">The Secret Garden</h2>
+              <p class="text-sm text-gray-700 mt-2">A forgotten garden, a lonely girl, and the magic of rebirth. 🌸</p>
+            </div>
+
+            <!-- Book 2 -->
+            <div class="bg-white/40 border border-gray-300 rounded-2xl shadow-dream p-4 hover:scale-105 transition-transform duration-300 animate-fadeIn delay-200">
+              <img src="./assets/images/book2.jpg" alt="book 2" class="w-full h-60 object-cover rounded-lg mb-4 shadow-md" />
+              <h2 class="text-xl font-title text-green-800">Clover Café Tales</h2>
+              <p class="text-sm text-gray-700 mt-2">Stories brewed between soft clinks of coffee cups and quiet hearts. ☘️</p>
+            </div>
+
+            <!-- Book 3 -->
+            <div class="bg-white/40 border border-gray-300 rounded-2xl shadow-dream p-4 hover:scale-105 transition-transform duration-300 animate-fadeIn delay-500">
+              <img src="./assets/images/book3.jpg" alt="book 3" class="w-full h-60 object-cover rounded-lg mb-4 shadow-md" />
+              <h2 class="text-xl font-title text-green-800">Letters to the Moon</h2>
+              <p class="text-sm text-gray-700 mt-2">A dreamy journal of stargazing and love letters never sent. 🌙</p>
+            </div>
+          </div>
+
+          <!-- Reading Quote -->
+          <div class="mt-16 text-gray-600 text-lg italic animate-fadeIn">
+            “In this nook, time slows down — and the stories speak softly.” 📖
+          </div>
+
+          <!-- Ambient music -->
+          <div class="mt-10">
+            <audio id="bg-audio" controls loop class="mx-auto rounded-lg shadow-md bg-white/50">
+              <source src="./assets/audio/library-lofi.mp3" type="audio/mpeg">
+            </audio>
+            <p id="audio-time" class="text-sm mt-2 text-gray-700"></p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script src="./js/script.js"></script>
+</body>
+</html>
