@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Café Clover</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-emerald-50 text-slate-800 font-serif">
+  <!-- Sidebar -->
+  <aside class="fixed top-0 left-0 h-full w-52 bg-emerald-100 p-5 flex flex-col justify-between shadow-md">
+    <div>
+      <h1 class="text-2xl font-bold text-emerald-700 mb-6">☘️ Café Clover</h1>
+      <nav class="space-y-3">
+        <a href="index.html" class="block font-semibold text-emerald-700">🏠 Home</a>
+        <a href="library.html" class="block hover:text-emerald-600">📚 Book Nook</a>
+        <a href="about.html" class="block hover:text-emerald-600">💫 About</a>
+      </nav>
+    </div>
+    <p class="text-xs text-emerald-600">© 2025 Café Clover</p>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="ml-56 h-screen flex flex-col justify-center items-center space-y-6">
+    <h2 class="text-4xl font-bold text-emerald-800">Welcome to Café Clover ☕</h2>
+    <p class="max-w-lg text-center text-slate-700">
+      A soft little café corner on the web — where focus meets comfort,
+      and ideas bloom like clovers 🌿
+    </p>
+    <button
+      class="mt-4 bg-emerald-600 text-white px-5 py-2 rounded-full shadow-md hover:bg-emerald-700 transition"
+      onclick="playChime()"
+    >
+      🍀 Tap the Clover
+    </button>
+  </main>
+
+  <audio id="chime" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_fbb848f116.mp3?filename=cute-notification-109228.mp3"></audio>
+
+  <script>
+    function playChime() {
+      document.getElementById('chime').play();
+    }
+  </script>
+</body>
+</html>
