@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>꒰ Cloverbell — Guest Book ꒱</title>
+  <link rel="icon" href="./assets/images/cloveeee.jpg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .float { animation: float 3s ease-in-out infinite; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { animation: fadeIn 1.2s ease-in-out; }
+
+    .glass {
+      background-color: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(8px);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-[url('assets/images/background.jpeg')] bg-cover bg-center text-gray-800 flex flex-col items-center px-4 py-8">
+
+  <main class="flex justify-center w-full h-full">
+    <div class="bg-[url('assets/images/background1.png')] bg-cover bg-center px-16 py-20 w-3/4 rounded-lg shadow-3xl fade-in shadow-dream backdrop-blur-sm">
+
+      <div class="flex justify-center gap-20 mr-32">
+        <!-- Sidebar -->
+        <div class="p-4 py-12 mr-16 border-r border-gray-400">
+          <nav>
+            <div>
+              <img src="assets/images/bug_lady.jpeg" alt="bug lady tammana" class="w-32 h-32 object-cover rounded-md mx-auto mb-4 float" />
+            </div>
+            <ul class="space-y-8 mt-8 ml-8 text-lg sm:text-xl font-serif pr-6">
+              <li><a href="index.html" class="hover:text-green-700 transition-colors">home</a></li>
+              <li><a href="get-working.html" class="hover:text-green-700 transition-colors">get working</a></li>
+              <li><a href="book-nook.html" class="hover:text-green-700 transition-colors">book nook</a></li>
+              <li><a href="creator.html" class="hover:text-green-700 transition-colors">creator</a></li>
+              <li><a href="guest-book.html" class="text-green-700">guest book</a></li>
+              <li><a href="cattos.html" class="hover:text-green-700 transition-colors">&lt;3 cattos</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Main content -->
+        <div class="max-w-2xl">
+          <h1 class="text-center text-4xl font-serif mb-4">꒰ Guest Book ꒱</h1>
+          <p class="text-center mb-8 text-base sm:text-lg italic">
+            Leave a little magic before you go 🍃  
+          </p>
+
+          <div class="border-t border-gray-400 my-6"></div>
+
+          <!-- Guest form -->
+          <section class="text-center mb-12">
+            <h2 class="text-2xl font-serif mb-4">🌷 Leave Your Message</h2>
+            <form id="guestForm" class="flex flex-col items-center space-y-3">
+              <input type="text" id="guestName" placeholder="Your name or nickname" class="w-full p-2 rounded-md border border-gray-300 font-serif glass text-gray-800" required />
+              <textarea id="guestMessage" rows="4" placeholder="Write a little message here..." class="w-full p-3 rounded-md border border-gray-300 font-serif glass text-gray-800 resize-none" required></textarea>
+              <button type="submit" class="px-4 py-2 bg-green-200 hover:bg-green-300 transition rounded-lg font-serif shadow">
+                send love ✿
+              </button>
+            </form>
+            <p id="guestSaved" class="mt-3 text-sm text-gray-600 hidden">your message has been pinned 🌸</p>
+          </section>
+
+          <div class="border-t border-gray-400 my-6"></div>
+
+          <!-- Guest messages -->
+          <section>
+            <h2 class="text-2xl font-serif text-center mb-4">💌 From Our Lovely Visitors</h2>
+            <div id="guestList" class="space-y-4 max-h-80 overflow-y-auto pr-2">
+              <!-- Guest entries will appear here -->
+            </div>
+          </section>
+
+          <div class="border-t border-gray-400 my-6"></div>
+
+          <!-- Footer -->
+          <div class="text-center space-y-2">
+            <p>return to <a href="index.html" class="underline">home</a></p>
+            <p>꒰ <a href="https://theflowering.neocities.org" class="underline">flowering</a> ꒱ clover</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById('guestForm');
+    const guestList = document.getElementById('guestList');
+    const savedMsg = document.getElementById('guestSaved');
+
+    function loadMessages() {
+      const saved = JSON.parse(localStorage.getItem('cloverGuests')) || [];
+      guestList.innerHTML = '';
+      saved.forEach((g) => {
+        const div = document.createElement('div');
+        div.classList.add('glass', 'p-3', 'rounded-lg', 'shadow', 'fade-in');
+        div.innerHTML = `<p class="font-serif text-gray-700">“${g.message}”</p><p class="text-sm text-right italic text-gray-600 mt-1">– ${g.name}</p>`;
+        guestList.prepend(div);
+      });
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('guestName').value.trim() || "Anonymous";
+      const message = document.getElementById('guestMessage').value.trim();
+      if (!message) return;
+
+      const newGuest = { name, message };
+      const existing = JSON.parse(localStorage.getItem('cloverGuests')) || [];
+      existing.push(newGuest);
+      localStorage.setItem('cloverGuests', JSON.stringify(existing));
+
+      form.reset();
+      savedMsg.classList.remove('hidden');
+      loadMessages();
+      setTimeout(() => savedMsg.classList.add('hidden'), 2000);
+    });
+
+    window.addEventListener('load', loadMessages);
+  </script>
+</body>
+</html>

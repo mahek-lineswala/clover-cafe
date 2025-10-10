@@ -3,36 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Book Nook - Café Clover</title>
+  <title>Library — ꒰ Cloverbell ꒱</title>
+  <link rel="icon" href="./images/cloveeee.jpg" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+    .fade-in { animation: fadeIn 0.8s ease-in; }
+    @keyframes pop { 0% { transform: scale(0.9); opacity: 0;} 100% { transform: scale(1); opacity: 1;} }
+    .pop { animation: pop 0.4s ease-out; }
+  </style>
 </head>
-<body class="bg-emerald-50 text-slate-800 font-serif">
-  <!-- Sidebar -->
-  <aside class="fixed top-0 left-0 h-full w-52 bg-emerald-100 p-5 flex flex-col justify-between shadow-md">
-    <div>
-      <h1 class="text-2xl font-bold text-emerald-700 mb-6">☘️ Café Clover</h1>
-      <nav class="space-y-3">
-        <a href="index.html" class="block hover:text-emerald-600">🏠 Home</a>
-        <a href="library.html" class="block font-semibold text-emerald-700">📚 Book Nook</a>
-        <a href="about.html" class="block hover:text-emerald-600">💫 About</a>
-      </nav>
-    </div>
-    <p class="text-xs text-emerald-600">© 2025 Café Clover</p>
-  </aside>
+<body class="min-h-screen bg-[url('images/bacground.jpeg')] bg-cover bg-center text-gray-800 flex flex-col items-center px-4 py-8 font-serif">
 
-  <!-- Main Content -->
-  <main class="ml-56 min-h-screen flex flex-col items-center justify-center space-y-6">
-    <h2 class="text-3xl font-bold text-emerald-800">📖 Cozy Book Nook</h2>
-    <p class="text-slate-700 text-center max-w-md">
-      Order a “book” from our cozy menu and get a random recommendation served fresh ☕
-    </p>
-    <button
-      onclick="suggestBook()"
-      class="bg-emerald-600 text-white px-5 py-2 rounded-full shadow-md hover:bg-emerald-700 transition"
-    >
-      🍵 Order a Book
-    </button>
-    <div id="book" class="mt-4 text-lg text-emerald-700 font-medium"></div>
+  <main class="flex justify-center w-full h-full">
+    <div class="bg-[url('images/baclground1.png')] bg-cover bg-center px-16 py-20 w-3/4 rounded-lg shadow-3xl flex gap-20">
+
+      <!-- Sidebar -->
+      <div class="p-4 py-12 mr-16 border-r border-gray-400 bg-cover bg-center fade-in">
+        <nav>
+          <div>
+            <img src="images/bug_lady.jpeg" alt="bug lady tammana" class="w-32 h-32 object-cover rounded-md mx-auto mb-4 hover:scale-105 transition-transform duration-300" />
+          </div>
+          <ul class="space-y-8 mt-8 ml-8 text-lg sm:text-xl font-serif pr-6">
+            <li><a href="index.html" class="hover:text-emerald-600 transition">home</a></li>
+            <li><a href="about.html" class="hover:text-emerald-600 transition">about</a></li>
+            <li><a href="cafe.html" class="hover:text-emerald-600 transition">cafe</a></li>
+            <li><a href="library.html" class="font-semibold text-emerald-700 underline underline-offset-4">library</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Book Section -->
+      <div class="flex flex-col items-center justify-center text-center fade-in w-full">
+        <h1 class="text-4xl font-bold text-emerald-800 mb-6">📚 Cozy Book Nook</h1>
+        <p class="text-lg max-w-md mb-8">
+          Order a random cozy book recommendation — like a sweet surprise from the barista. ☕
+        </p>
+        <button onclick="suggestBook()" class="bg-emerald-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-emerald-700 transition">
+          🍵 Order a Book
+        </button>
+        <div id="book" class="mt-8 text-2xl text-emerald-700 font-medium"></div>
+      </div>
+
+    </div>
   </main>
 
   <script>
@@ -44,8 +57,12 @@
       "📔 'Little Women' — Louisa May Alcott"
     ];
     function suggestBook() {
+      const bookDiv = document.getElementById('book');
       const random = books[Math.floor(Math.random() * books.length)];
-      document.getElementById('book').textContent = random;
+      bookDiv.textContent = random;
+      bookDiv.classList.remove('pop');
+      void bookDiv.offsetWidth; // reset animation
+      bookDiv.classList.add('pop');
     }
   </script>
 </body>
