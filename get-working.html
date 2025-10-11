@@ -45,9 +45,30 @@
       }
     }
   </script>
+
+  <style>
+    /* Soft scrollbar inside napkin */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(60, 100, 60, 0.4);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(60, 100, 60, 0.6);
+    }
+  </style>
 </head>
 
-<body class="min-h-screen bg-[url('./assets/images/background.jpeg')] bg-cover bg-fixed bg-center text-gray-800 flex flex-col items-center py-12 px-4">
+<body class="min-h-screen bg-[url('./assets/images/bg1.png')] bg-cover bg-fixed bg-center text-gray-800 flex flex-col items-center py-12 px-4">
 
   <main class="flex justify-center w-full h-full animate-fadeIn relative">
     <!-- Glowing clovers background -->
@@ -57,112 +78,55 @@
       <div class="absolute bottom-20 left-32 text-green-400 opacity-60 animate-float">🍀</div>
     </div>
 
-    <div class=" w-3/4 rounded-3xl shadow-dream backdrop-blur-sm px-10 py-16 border border-gray-300/60 relative z-10">
+    <!-- Napkin container -->
+    <div class="w-3/5 h-[80vh] rounded-3xl px-8 py-10 relative z-10 flex bg-transparent">
 
-      <div class="flex justify-center gap-16">
+      <!-- Sidebar Navigation -->
+      <aside class="w-1/4 sticky top-10 self-start p-4 rounded-l-2xl flex flex-col items-center">
+        <nav class="text-center">
+          <img src="./assets/images/bug_lady.png" alt="bug lady tammana"
+            class="w-28 h-28 object-cover mx-auto mb-4 transition-transform duration-300 hover:scale-110" />
 
-        <!-- Sidebar Navigation -->
-        <aside class="p-4 pr-20 pl-16 border-r border-green-800  rounded-l-2xl ">
-          <nav class="text-center">
-            <img src="./assets/images/bug_lady.png" alt="bug lady tammana"
-              class="w-32 h-32 object-cover  mx-auto mb-6 transition-transform duration-300 hover:scale-110 " />
+          <ul class="space-y-4 text-lg font-serif text-gray-700">
+            <li><a href="index.html" class="hover:text-green-700">home</a></li>
+            <li><a href="get-working.html" class="text-green-700 transition-colors">workaholic</a></li>
+            <li><a href="book-nook.html" class="hover:text-green-700 transition-colors">book nook</a></li>
+            <li><a href="creator.html" class="hover:text-green-700 transition-colors">creator</a></li>
+            <li><a href="guest-book.html" class="hover:text-green-700 transition-colors">guest book</a></li>
+            <li><a href="cattos.html" class="hover:text-green-700 transition-colors">&lt;3 cattos</a></li>
+          </ul>
+        </nav>
+      </aside>
+      
+      <!-- Scrollable Content -->
+      <section class="w-3/4 h-full overflow-y-auto pl-6 pr-4 text-center font-serif">
+        <h1 class="text-5xl font-title mb-6 text-green-800 drop-shadow-md animate-fadeIn animate-float">꒰ Get Working ꒱</h1>
+        <p class="text-gray-700 text-lg italic mb-6">find your focus, sip your latte, and let the world fade away 🍵</p>
 
-            <ul class="space-y-6 text-lg font-serif text-gray-700 ">
-              <li><a href="index.html" class="text-green-700 font-semibold">home</a></li>
-              <li><a href="get-working.html" class="hover:text-green-700 transition-colors "> workaholic</a></li>
-              <li><a href="book-nook.html" class="hover:text-green-700 transition-colors">book nook</a></li>
-              <li><a href="creator.html" class="hover:text-green-700 transition-colors">creator</a></li>
-              <li><a href="guest-book.html" class="hover:text-green-700 transition-colors">guest book</a></li>
-              <li><a href="cattos.html" class="hover:text-green-700 transition-colors">&lt;3 cattos</a></li>
-            </ul>
-          </nav>
-        </aside>
-        
-        <!-- Main Content -->
-        <section class="w-full text-center font-serif">
-          <h1 class="text-5xl font-title mb-8 text-green-800 drop-shadow-md animate-fadeIn animate-float">꒰ Get Working ꒱</h1>
-          <p class="text-gray-700 text-lg italic mb-8">find your focus, sip your latte, and let the world fade away 🍵</p>
-
-          <!-- Focus Timer Card -->
-          <div class="bg-white/40 border border-gray-300 shadow-dream rounded-2xl p-8 max-w-md mx-auto animate-fadeIn">
-            <p class="text-sm text-gray-500 mb-3">pomodoro-style timer ⏳</p>
-            <h2 id="timer" class="text-6xl font-title text-green-800 mb-6">25:00</h2>
-            <div class="space-x-3">
-              <button id="start-btn" class="bg-green-700 text-white px-6 py-2 rounded-lg hover:bg-green-800 transition">Start</button>
-              <button id="pause-btn" class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition">Pause</button>
-              <button id="reset-btn" class="bg-gray-400 text-white px-6 py-2 rounded-lg hover:bg-gray-500 transition">Reset</button>
-            </div>
+        <!-- Focus Timer Card -->
+        <div class="bg-white/40 border border-gray-300 shadow-dream rounded-2xl p-8 max-w-md mx-auto animate-fadeIn">
+          <p class="text-sm text-gray-500 mb-3">pomodoro-style timer ⏳</p>
+          <h2 id="timer" class="text-6xl font-title text-green-800 mb-6">25:00</h2>
+          <div class="space-x-3">
+            <button id="start-btn" class="bg-green-700 text-white px-6 py-2 rounded-lg hover:bg-green-800 transition">Start</button>
+            <button id="pause-btn" class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition">Pause</button>
+            <button id="reset-btn" class="bg-gray-400 text-white px-6 py-2 rounded-lg hover:bg-gray-500 transition">Reset</button>
           </div>
+        </div>
 
-          <!-- Productivity Quote -->
-          <div class="mt-12">
-            <p class="text-lg italic text-gray-600 animate-fadeIn">
-              “Slow down. Sip your coffee. The clovers grow quietly.” ☘️
-            </p>
-          </div>
+        <!-- Productivity Quote -->
+        <div class="mt-12 mb-8">
+          <p class="text-lg italic text-gray-600 animate-fadeIn">
+            “Slow down. Sip your coffee. The clovers grow quietly.” ☘️
+          </p>
+        </div>
 
-          <!-- Ambient Music Player -->
-          <div class="mt-10">
-            <audio id="bg-audio" controls loop class="mx-auto rounded-lg shadow-md bg-white/50">
-              <source src="./assets/audio/lofi.mp3" type="audio/mpeg">
-            </audio>
-            <p id="audio-time" class="text-sm mt-2 text-gray-700"></p>
-          </div>
-        </section>
+        <!-- Extra filler (for scroll test) -->
 
-      </div>
+      </section>
     </div>
   </main>
 
-  <script src="./js/script.js"></script>
 
-  <!-- Page-specific script -->
-  <script>
-    let time = 1500; // 25 minutes
-    let timerInterval;
-    const timerDisplay = document.getElementById('timer');
-    const startBtn = document.getElementById('start-btn');
-    const pauseBtn = document.getElementById('pause-btn');
-    const resetBtn = document.getElementById('reset-btn');
-
-    function updateTimer() {
-      const mins = Math.floor(time / 60).toString().padStart(2, '0');
-      const secs = (time % 60).toString().padStart(2, '0');
-      timerDisplay.textContent = `${mins}:${secs}`;
-    }
-
-    function startTimer() {
-      if (!timerInterval) {
-        timerInterval = setInterval(() => {
-          if (time > 0) {
-            time--;
-            updateTimer();
-          } else {
-            clearInterval(timerInterval);
-            timerInterval = null;
-            alert('🍀 Time’s up! Take a break.');
-          }
-        }, 1000);
-      }
-    }
-
-    function pauseTimer() {
-      clearInterval(timerInterval);
-      timerInterval = null;
-    }
-
-    function resetTimer() {
-      clearInterval(timerInterval);
-      timerInterval = null;
-      time = 1500;
-      updateTimer();
-    }
-
-    startBtn.addEventListener('click', startTimer);
-    pauseBtn.addEventListener('click', pauseTimer);
-    resetBtn.addEventListener('click', resetTimer);
-
-    updateTimer();
-  </script>
 </body>
 </html>

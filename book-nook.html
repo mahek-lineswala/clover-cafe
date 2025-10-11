@@ -47,7 +47,7 @@
   </script>
 </head>
 
-<body class="min-h-screen bg-[url('./assets/images/background.jpeg')] bg-cover bg-fixed bg-center text-gray-800 flex flex-col items-center py-12 px-4">
+<body class="min-h-screen bg-[url('./assets/images/bg1.png')] bg-cover bg-fixed bg-center text-gray-800 flex flex-col items-center py-12 px-4">
 
   <main class="flex justify-center w-full h-full animate-fadeIn relative">
 
@@ -59,17 +59,17 @@
     </div>
 
     <!-- Main content box -->
-    <div class=" w-3/4 rounded-3xl shadow-dream backdrop-blur-sm px-10 py-16 border border-gray-300/60 relative z-10">
+    <div class="w-[55%] h-[80vh] rounded-3xl px-8 py-10 relative z-10 flex bg-transparent">
 
       <div class="flex justify-center gap-16">
         <!-- Sidebar -->
-        <aside class="p-6 border-r border-gray-400  rounded-l-2xl ">
+        <aside class="p-6 rounded-l-2xl ">
           <nav class="text-center">
-            <img src="./assets/images/bug_lady.jpeg" alt="bug lady tammana"
-              class="w-32 h-32 object-cover rounded-xl mx-auto mb-6 shadow-dream transition-transform duration-300 hover:scale-110" />
+            <img src="./assets/images/bug_lady.png" alt="bug lady tammana"
+              class="w-32 h-32 object-cover rounded-xl mx-auto mb-6 transition-transform duration-300 hover:scale-110" />
             <ul class="space-y-6 text-lg font-serif text-gray-700">
               <li><a href="index.html" class="hover:text-green-700 transition-colors">home</a></li>
-              <li><a href="get-working.html" class="hover:text-green-700 transition-colors">get working</a></li>
+              <li><a href="get-working.html" class="hover:text-green-700 transition-colors">workaholic</a></li>
               <li><a href="book-nook.html" class="text-green-700 font-semibold">book nook</a></li>
               <li><a href="creator.html" class="hover:text-green-700 transition-colors">creator</a></li>
               <li><a href="guest-book.html" class="hover:text-green-700 transition-colors">guest book</a></li>
@@ -79,7 +79,10 @@
         </aside>
 
         <!-- Main Section -->
-        <section class="w-full text-center font-serif">
+        <section class="w-full h-full overflow-y-auto pl-6 pr-4 text-center font-serif scrollbar-hide">
+          <style>
+            section::-webkit-scrollbar { display: none; }
+          </style>
           <h1 class="text-5xl font-title mb-8 text-green-800 drop-shadow-md animate-fadeIn animate-float">꒰ Book Nook ꒱</h1>
           <p class="text-gray-700 text-lg italic mb-10">a cozy corner for dreamers, readers, and late-night thinkers ☕📚</p>
 
