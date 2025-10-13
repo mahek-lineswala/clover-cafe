@@ -8,21 +8,26 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <style>
-    @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+    @keyframes floatScale {
+  0%, 100% {
+    transform: scale(1.15) translateY(0);
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+  }
+  50% {
+    transform: scale(1.15) translateY(-10px);
+    filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.8));
+  }
 }
+  .cup {  
+    filter: drop-shadow(0 0 0 transparent); /* no glow initially */
+  }
 
-.cup {  
-  filter: drop-shadow(0 0 0 transparent); /* no glow initially */
-}
 
-/* On hover: float continues + glow + scale */
-.cup:hover {
-  transform: scale(1.15); /* smooth scale */
-  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.8)); /* white glow */
-}
-
+  .cup:hover {
+    animation: floatScale 3s ease-in-out infinite;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    cursor: pointer;
+  }
   </style>
     <style>
       @keyframes float {
@@ -79,8 +84,16 @@
   <body
     class="min-h-screen bg-[url('./assets/images/cutebg.png')] bg-cover bg-fixed bg-center text-gray-800 flex flex-col items-center py-12 px-4"
   >
-    <img src="./assets/images/cup_crop.png" alt="lalalla"
-  class="cup w-24 h-24 fixed left-12 top-12 z-10 transform transition-all duration-500 hover:animate-float" />
+    <img src="./assets/images/cup_crop.png" 
+     alt="Cup"
+     id="cup"
+     class="cup w-24 h-24 fixed right-12 top-12 z-10 transform transition-all duration-500 hover:animate-float cursor-pointer" />
+
+    <!-- Audio element -->
+    <audio id="chime-sound" src="./assets/images/sounds/Wind Chimes.mp3" preload="auto"></audio>
+  <img src="./assets/images/Adobe_Express_-_file.png" alt="songs" id="profileImage"
+    class="cup w-12 h-12 fixed right-[23%] top-12 z-10 transform transition-all duration-500 cursor-pointer" />
+    <audio id="bgMusic" src="./assets/audios/honey_tea_lemon.mp3" loop></audio>
     <main
       class="flex justify-center w-[70%] h-[80vh] flex overflow-hidden fade-in mt-8"
     >
@@ -89,8 +102,8 @@
         <!-- sidebar (fixed inside napkin) -->
         <aside class=" ml-4 mt-2  border-green-800  rounded-l-2xl ">
           <nav class="text-center">
-            <img src="./assets/images/bug_lady.png" alt="seal"
-              class="w-full h-32 object-cover mb-6 transition-transform duration-300 hover:scale-110 " />
+            <img src="./assets/images/tamannapfp-removebg-preview.png" alt="seal"
+              class="w-32 h-32 object-cover mb-6 transition-transform duration-300 " />
 
             <ul class="space-y-6 text-lg font-serif text-gray-700 ">
               <li><a href="index.html" class="hover:text-green-700 transition-colors">home</a></li>
@@ -132,5 +145,74 @@
         </section>
       </div>
     </main>
+    <script>
+  const music = document.getElementById('bgMusic');
+  const profileImage = document.getElementById('profileImage');
+  let isPlaying = true;
+
+  // Restore playback position + state when page loads
+  window.addEventListener('load', () => {
+    const lastTime = localStorage.getItem('musicTime');
+    const isPaused = localStorage.getItem('musicPaused') === 'true';
+
+    if (lastTime) {
+      music.currentTime = parseFloat(lastTime);
+    }
+
+    const playPromise = music.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        console.warn("Autoplay might be blocked until user interacts.");
+      });
+    }
+
+    if (isPaused) {
+      music.pause();
+      isPlaying = false;
+    }
+  });
+
+  // Save current position + state before leaving page
+  window.addEventListener('beforeunload', () => {
+    localStorage.setItem('musicTime', music.currentTime);
+    localStorage.setItem('musicPaused', music.paused);
+  });
+
+  // Toggle on click
+  profileImage.addEventListener('click', () => {
+    if (isPlaying) {
+      music.pause();
+      profileImage.classList.remove('playing');
+    } else {
+      music.play();
+      profileImage.classList.add('playing');
+    }
+    isPlaying = !isPlaying;
+  });
+</script>
   </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const cup = document.getElementById('cup');
+      const chime = document.getElementById('chime-sound');
+
+      // Allow browser to unlock audio playback
+      document.body.addEventListener('click', () => {
+        chime.play();
+        chime.pause();
+      }, { once: true });
+
+      // Play sound when mouse enters
+      cup.addEventListener('mouseenter', () => {
+        chime.currentTime = 0;
+        chime.play();
+      });
+
+      // Stop sound when mouse leaves
+      cup.addEventListener('mouseleave', () => {
+        chime.pause();
+        chime.currentTime = 0; // rewind to start
+      });
+    });
+  </script>
 </html>
