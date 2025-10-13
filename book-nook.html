@@ -66,6 +66,13 @@
 </head>
 
 <body class="min-h-screen bg-[url('./assets/images/cutebg.png')] bg-cover bg-fixed bg-center text-gray-800 flex flex-col items-center py-12 px-4">
+  <img src="./assets/images/cup_crop.png" 
+     alt="Cup"
+     id="cup"
+     class="cup w-24 h-24 fixed right-12 top-12 z-10 transform transition-all duration-500 hover:animate-float cursor-pointer" />
+
+    <!-- Audio element -->
+    <audio id="chime-sound" src="./assets/images/sounds/Wind Chimes.mp3" preload="auto"></audio>
   <img src="./assets/images/cup_crop.png" alt="lalalla"
   class="cup w-24 h-24 fixed left-12 top-12 z-10 transform transition-all duration-500 hover:animate-float" />
   <img src="./assets/images/Adobe_Express_-_file.png" alt="songs" id="profileImage"
@@ -190,4 +197,28 @@
   });
 </script>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const cup = document.getElementById('cup');
+      const chime = document.getElementById('chime-sound');
+
+      // Allow browser to unlock audio playback
+      document.body.addEventListener('click', () => {
+        chime.play();
+        chime.pause();
+      }, { once: true });
+
+      // Play sound when mouse enters
+      cup.addEventListener('mouseenter', () => {
+        chime.currentTime = 0;
+        chime.play();
+      });
+
+      // Stop sound when mouse leaves
+      cup.addEventListener('mouseleave', () => {
+        chime.pause();
+        chime.currentTime = 0; // rewind to start
+      });
+    });
+  </script>
 </html>
