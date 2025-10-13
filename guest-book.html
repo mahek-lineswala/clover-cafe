@@ -7,6 +7,24 @@
     <link rel="icon" href="./assets/images/cloveeee.jpg" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+   <style>
+    @keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* base float */
+.cup {
+  filter: drop-shadow(0 0 0 transparent);
+}
+
+/* hover: scale + glow while float continues */
+.cup:hover {
+  scale: 1.15; /* modern shorthand */
+  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.8));
+}
+  </style>
+
     <style>
       html,
       body {
@@ -51,71 +69,33 @@
   <body
     class="h-screen bg-[url('./assets/images/bg1.png')] bg-cover bg-center text-gray-800 flex flex-col items-center px-4 py-8 overflow-hidden"
   >
-    <main class="flex justify-center w-full h-full">
+   <img src="./assets/images/cup_crop.png" alt="lalalla"
+  class="cup w-24 h-24 fixed left-12 top-12 z-10 transform transition-all duration-500 hover:animate-float" />
+    <main class="flex justify-center w-full h-full ">
       <div
-        class="px-16 py-20 w-3/4  rounded-lg shadow-3xl fade-in flex items-stretch"
+        class="px-16 py-16 w-3/4  rounded-lg shadow-3xl fade-in flex items-stretch"
       >
-        <div class="flex justify-center gap-20 mr-32 w-full">
+        <div class="flex justify-center  mr-42 mb-8  w-full">
           <!-- Sidebar -->
-          <div class=" pb-12 ml-32 mb-12 flex-shrink-0 ">
-            <nav>
-              <div>
-                <img
-                  src="assets/images/bug_lady.png"
-                  alt="bug lady tammana"
-                  class="w-32 h-32 object-cover rounded-md mx-auto mb-4"
-                />
-              </div>
-              <ul
-                class="space-y-8 mt-8 ml-8 text-lg sm:text-xl font-serif pr-6"
-              >
-                <li>
-                  <a
-                    href="index.html"
-                    class="hover:text-green-700 transition-colors"
-                    >home</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="get-working.html"
-                    class="hover:text-green-700 transition-colors"
-                    >workaholic</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="book-nook.html"
-                    class="hover:text-green-700 transition-colors"
-                    >book nook</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="creator.html"
-                    class="hover:text-green-700 transition-colors"
-                    >creator</a
-                  >
-                </li>
-                <li>
-                  <a href="guest-book.html" class="text-green-700"
-                    >guest book</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="cattos.html"
-                    class="hover:text-green-700 transition-colors"
-                    >&lt;3 cattos</a
-                  >
-                </li>
-              </ul>
-            </nav>
-          </div>
+           <aside class=" ml-40  border-green-800  rounded-l-2xl ">
+          <nav class="text-center">
+            <img src="./assets/images/bug_lady.png" alt="seal"
+              class="w-full h-32 object-cover mb-6 transition-transform duration-300 hover:scale-110 " />
+
+            <ul class="space-y-6 text-lg font-serif text-gray-700 ">
+              <li><a href="index.html" class="hover:text-green-700 transition-colors">home</a></li>
+              <li><a href="get-working.html" class="hover:text-green-700 transition-colors "> workaholic</a></li>
+              <li><a href="book-nook.html" class="hover:text-green-700 transition-colors">book nook</a></li>
+              <li><a href="creator.html" class="hover:text-green-700 transition-colors">creator</a></li>
+              <li><a href="guest-book.html" class="text-green-700 font-semibold">guest book</a></li>
+              <li><a href="cattos.html" class="hover:text-green-700 transition-colors">&lt;3 cattos</a></li>
+            </ul>
+          </nav>
+        </aside>
 
           <!-- Main content -->
           <div
-            class="w-[70%] h-full overflow-y-auto pl-6 pr-4 text-center font-serif"
+            class="w-[70%] h-full ml-10 overflow-y-auto pl-6 pr-4 text-center font-serif"
             style="scrollbar-width: none; -ms-overflow-style: none"
           >
             <style>
@@ -124,7 +104,7 @@
                 display: none;
               }
             </style>
-            <h1 class="text-center text-4xl font-serif mb-4 float">
+            <h1 class="text-center text-4xl font-serif font-semibold mt-2 mb-4 float text-green-800 drop-shadow-md">
               ꒰ Guest Book ꒱
             </h1>
             <p class="text-center mb-8 text-base sm:text-lg italic">
@@ -179,18 +159,6 @@
             </section>
 
             <div class="border-t border-gray-400 my-6"></div>
-
-            <!-- Footer -->
-            <div class="text-center space-y-2">
-              <p>return to <a href="index.html" class="underline">home</a></p>
-              <p>
-                ꒰
-                <a href="https://theflowering.neocities.org" class="underline"
-                  >flowering</a
-                >
-                ꒱ clover
-              </p>
-            </div>
           </div>
         </div>
       </div>

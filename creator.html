@@ -7,7 +7,23 @@
     <link rel="icon" href="./assets/images/cloveeee.jpg" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <style>
+    @keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
 
+.cup {  
+  filter: drop-shadow(0 0 0 transparent); /* no glow initially */
+}
+
+/* On hover: float continues + glow + scale */
+.cup:hover {
+  transform: scale(1.15); /* smooth scale */
+  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.8)); /* white glow */
+}
+
+  </style>
     <style>
       @keyframes float {
         0%,
@@ -63,69 +79,35 @@
   <body
     class="min-h-screen bg-[url('./assets/images/bg1.png')] bg-cover bg-fixed bg-center text-gray-800 flex flex-col items-center py-12 px-4"
   >
+    <img src="./assets/images/cup_crop.png" alt="lalalla"
+  class="cup w-24 h-24 fixed left-12 top-12 z-10 transform transition-all duration-500 hover:animate-float" />
     <main
       class="flex justify-center w-[70%] h-[80vh] flex overflow-hidden fade-in mt-8"
     >
       <!-- napkin area -->
-      <div class="w-3/4 rounded-3xl flex overflow-hidden">
+      <div class="w-[68%] rounded-3xl flex overflow-hidden">
         <!-- sidebar (fixed inside napkin) -->
-        <aside class="w-1/4 p-6 flex flex-col items-center">
-          <img
-            src="assets/images/bug_lady.png"
-            alt="bug lady tammana"
-            class="w-28 h-28 object-cover rounded-md mb-6"
-          />
-          <nav>
-            <ul class="space-y-6 text-lg font-serif text-center">
-              <li>
-                <a
-                  href="index.html"
-                  class="hover:text-green-700 transition-colors"
-                  >home</a
-                >
-              </li>
-              <li>
-                <a
-                  href="get-working.html"
-                  class="hover:text-green-700 transition-colors"
-                  >workaholic</a
-                >
-              </li>
-              <li>
-                <a
-                  href="book-nook.html"
-                  class="hover:text-green-700 transition-colors"
-                  >book nook</a
-                >
-              </li>
-              <li>
-                <a href="creator.html" class="text-green-700 font-semibold"
-                  >creator</a
-                >
-              </li>
-              <li>
-                <a
-                  href="guest-book.html"
-                  class="hover:text-green-700 transition-colors"
-                  >guest book</a
-                >
-              </li>
-              <li>
-                <a
-                  href="cattos.html"
-                  class="hover:text-green-700 transition-colors"
-                  >&lt;3 cattos</a
-                >
-              </li>
+        <aside class=" ml-4 mt-2  border-green-800  rounded-l-2xl ">
+          <nav class="text-center">
+            <img src="./assets/images/bug_lady.png" alt="seal"
+              class="w-full h-32 object-cover mb-6 transition-transform duration-300 hover:scale-110 " />
+
+            <ul class="space-y-6 text-lg font-serif text-gray-700 ">
+              <li><a href="index.html" class="hover:text-green-700 transition-colors">home</a></li>
+              <li><a href="get-working.html" class="hover:text-green-700 transition-colors "> workaholic</a></li>
+              <li><a href="book-nook.html" class="hover:text-green-700 transition-colors">book nook</a></li>
+              <li><a href="creator.html" class="text-green-700 font-semibold">creator</a></li>
+              <li><a href="guest-book.html" class="hover:text-green-700 transition-colors">guest book</a></li>
+              <li><a href="cattos.html" class="hover:text-green-700 transition-colors">&lt;3 cattos</a></li>
             </ul>
           </nav>
         </aside>
 
         <!-- scrollable content -->
         <section
-          class="w-3/4 h-full overflow-y-auto px-10 py-8 text-center font-serif"
+          class="w-3/4 h-full ml-10 overflow-y-auto px-10 py-8 text-center font-serif"
         >
-          <h1 class="mb-4 float text-green-800 text-4xl font-semibold">
+          <h1 class="mb-4 float text-green-800 text-4xl font-semibold ">
             ꒰ Creator’s Corner ꒱
           </h1>
           <p class="mb-8 text-base italic">

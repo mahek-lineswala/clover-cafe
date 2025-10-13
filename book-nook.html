@@ -7,10 +7,28 @@
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   <link rel="stylesheet" href="./css/style.css" />
   <link rel="icon" href="./assets/images/cloveeee.jpg" />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Playfair+Display&display=swap" rel="stylesheet" />
+  <style>
+    @keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
 
+/* base float */
+.cup {
+  
+  filter: drop-shadow(0 0 0 transparent);
+}
+
+/* hover: scale + glow while float continues */
+.cup:hover {
+  scale: 1.15; /* modern shorthand */
+  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.8));
+}
+  </style>
   <script>
     tailwind.config = {
       theme: {
@@ -48,7 +66,8 @@
 </head>
 
 <body class="min-h-screen bg-[url('./assets/images/bg1.png')] bg-cover bg-fixed bg-center text-gray-800 flex flex-col items-center py-12 px-4">
-
+  <img src="./assets/images/cup_crop.png" alt="lalalla"
+  class="cup w-24 h-24 fixed left-12 top-12 z-10 transform transition-all duration-500 hover:animate-float" />
   <main class="flex justify-center w-full h-full animate-fadeIn relative">
 
     <!-- Floating background icons -->
@@ -63,7 +82,7 @@
 
       <div class="flex justify-center gap-16">
         <!-- Sidebar -->
-        <aside class="p-6 rounded-l-2xl ">
+        <aside class="ml-14 mb-12 rounded-l-2xl ">
           <nav class="text-center">
             <img src="./assets/images/bug_lady.png" alt="bug lady tammana"
               class="w-32 h-32 object-cover rounded-xl mx-auto mb-6 transition-transform duration-300 hover:scale-110" />
@@ -83,7 +102,7 @@
           <style>
             section::-webkit-scrollbar { display: none; }
           </style>
-          <h1 class="text-5xl font-title mb-8 text-green-800 drop-shadow-md animate-fadeIn animate-float">꒰ Book Nook ꒱</h1>
+          <h1 class="text-5xl font-title mt-4 mb-8 text-green-800 drop-shadow-md animate-fadeIn animate-float">꒰ Book Nook ꒱</h1>
           <p class="text-gray-700 text-lg italic mb-10">a cozy corner for dreamers, readers, and late-night thinkers ☕📚</p>
 
           <!-- Books Grid -->
