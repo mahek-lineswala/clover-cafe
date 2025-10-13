@@ -81,6 +81,9 @@
   >
     <img src="./assets/images/cup_crop.png" alt="lalalla"
   class="cup w-24 h-24 fixed left-12 top-12 z-10 transform transition-all duration-500 hover:animate-float" />
+  <img src="./assets/images/Adobe_Express_-_file.png" alt="songs" id="profileImage"
+    class="cup w-12 h-12 fixed right-[23%] top-12 z-10 transform transition-all duration-500 cursor-pointer" />
+    <audio id="bgMusic" src="./assets/audios/honey_tea_lemon.mp3" loop></audio>
     <main
       class="flex justify-center w-[70%] h-[80vh] flex overflow-hidden fade-in mt-8"
     >
@@ -89,8 +92,8 @@
         <!-- sidebar (fixed inside napkin) -->
         <aside class=" ml-4 mt-2  border-green-800  rounded-l-2xl ">
           <nav class="text-center">
-            <img src="./assets/images/bug_lady.png" alt="seal"
-              class="w-full h-32 object-cover mb-6 transition-transform duration-300 hover:scale-110 " />
+            <img src="./assets/images/tamannapfp-removebg-preview.png" alt="seal"
+              class="w-32 h-32 object-cover mb-6 transition-transform duration-300 " />
 
             <ul class="space-y-6 text-lg font-serif text-gray-700 ">
               <li><a href="index.html" class="hover:text-green-700 transition-colors">home</a></li>
@@ -132,5 +135,50 @@
         </section>
       </div>
     </main>
+    <script>
+  const music = document.getElementById('bgMusic');
+  const profileImage = document.getElementById('profileImage');
+  let isPlaying = true;
+
+  // Restore playback position + state when page loads
+  window.addEventListener('load', () => {
+    const lastTime = localStorage.getItem('musicTime');
+    const isPaused = localStorage.getItem('musicPaused') === 'true';
+
+    if (lastTime) {
+      music.currentTime = parseFloat(lastTime);
+    }
+
+    const playPromise = music.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        console.warn("Autoplay might be blocked until user interacts.");
+      });
+    }
+
+    if (isPaused) {
+      music.pause();
+      isPlaying = false;
+    }
+  });
+
+  // Save current position + state before leaving page
+  window.addEventListener('beforeunload', () => {
+    localStorage.setItem('musicTime', music.currentTime);
+    localStorage.setItem('musicPaused', music.paused);
+  });
+
+  // Toggle on click
+  profileImage.addEventListener('click', () => {
+    if (isPlaying) {
+      music.pause();
+      profileImage.classList.remove('playing');
+    } else {
+      music.play();
+      profileImage.classList.add('playing');
+    }
+    isPlaying = !isPlaying;
+  });
+</script>
   </body>
 </html>
