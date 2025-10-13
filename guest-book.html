@@ -8,21 +8,26 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
    <style>
-    @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+    @keyframes floatScale {
+  0%, 100% {
+    transform: scale(1.15) translateY(0);
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+  }
+  50% {
+    transform: scale(1.15) translateY(-10px);
+    filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.8));
+  }
 }
+  .cup {  
+    filter: drop-shadow(0 0 0 transparent); /* no glow initially */
+  }
 
-/* base float */
-.cup {
-  filter: drop-shadow(0 0 0 transparent);
-}
 
-/* hover: scale + glow while float continues */
-.cup:hover {
-  scale: 1.15; /* modern shorthand */
-  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.8));
-}
+  .cup:hover {
+    animation: floatScale 3s ease-in-out infinite;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    cursor: pointer;
+  }
   </style>
 
     <style>
@@ -69,8 +74,14 @@
   <body
     class="h-screen bg-[url('./assets/images/cutebg.png')] bg-cover bg-center text-gray-800 flex flex-col items-center px-4 py-8 overflow-hidden"
   >
-   <img src="./assets/images/cup_crop.png" alt="lalalla"
-  class="cup w-24 h-24 fixed left-12 top-12 z-10 transform transition-all duration-500 hover:animate-float" />
+   <img src="./assets/images/cup_crop.png" 
+     alt="Cup"
+     id="cup"
+     class="cup w-24 h-24 fixed right-12 top-12 z-10 transform transition-all duration-500 hover:animate-float cursor-pointer" />
+
+<!-- Audio element -->
+<audio id="chime-sound" src="./assets/images/sounds/Wind Chimes.mp3" preload="auto"></audio>
+
     <main class="flex justify-center w-full h-full ">
       <div
         class="px-16 py-16 w-3/4  rounded-lg shadow-3xl fade-in flex items-stretch"
@@ -201,4 +212,28 @@
       window.addEventListener("load", loadMessages);
     </script>
   </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const cup = document.getElementById('cup');
+      const chime = document.getElementById('chime-sound');
+
+      // Allow browser to unlock audio playback
+      document.body.addEventListener('click', () => {
+        chime.play();
+        chime.pause();
+      }, { once: true });
+
+      // Play sound when mouse enters
+      cup.addEventListener('mouseenter', () => {
+        chime.currentTime = 0;
+        chime.play();
+      });
+
+      // Stop sound when mouse leaves
+      cup.addEventListener('mouseleave', () => {
+        chime.pause();
+        chime.currentTime = 0; // rewind to start
+      });
+    });
+  </script>
 </html>
