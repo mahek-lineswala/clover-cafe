@@ -131,24 +131,6 @@
     />
     <audio id="bgMusic" src="./assets/audios/honey_tea_lemon.mp3" loop></audio>
     <main class="flex justify-center w-full h-full animate-fadeIn relative">
-      <!-- Glowing clovers background -->
-      <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          class="absolute top-20 left-10 text-green-500 opacity-60 animate-float"
-        >
-          🍀
-        </div>
-        <div
-          class="absolute top-40 right-20 text-green-600 opacity-60 animate-glow"
-        >
-          🍀
-        </div>
-        <div
-          class="absolute bottom-20 left-32 text-green-400 opacity-60 animate-float"
-        >
-          🍀
-        </div>
-      </div>
 
       <!-- Napkin container -->
       <div
@@ -213,50 +195,71 @@
           class="w-3/4 h-full overflow-y-auto pl-6 pr-4 text-center font-serif mr-12 mt-4"
         >
           <h1
-            class="text-5xl myfont mt-2 mb-6 text-green-800 drop-shadow-md animate-fadeIn animate-float"
+            class="text-5xl myfont mt-2 mb-6 text-brown-800 drop-shadow-md animate-fadeIn animate-float"
           >
             ꒰ Get Working ꒱
           </h1>
-          <p class="text-gray-700 text-lg italic mb-6">
-            find your focus, sip your latte, and let the world fade away 🍵
+          <p class="text-black-200 italic font-semibold text-center mb-4 max-w-xl mx-auto leading-relaxed">
+            Pomodoro Timer & To-Do List <3
           </p>
 
           <!-- Focus Timer Card -->
-          <div
-            class="bg-white/40 border shadow-dream rounded-2xl p-8 max-w-md mx-auto animate-fadeIn"
-          >
-            <p class="text-sm text-gray-500 mb-3">pomodoro-style timer ⏳</p>
-            <h2 id="timer" class="text-6xl font-title text-green-800 mb-6">
+          <div class="bg-[linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url('./assets/images/pomo2.jpeg')] bg-cover bg-center border shadow-dream rounded-2xl p-8 max-w-md mx-auto animate-fadeIn">
+            <h2 id="timer" class="text-6xl  font-serif text-white mb-6">
               25:00
             </h2>
             <div class="space-x-3">
               <button
+              id="reset-btn"
+              class="bg-white/30 backdrop-blur-sm text-white px-6 py-2 rounded-lg hover:bg-white/15 transition duration-300"
+            >
+              Reset
+            </button>
+
+              <button
                 id="start-btn"
-                class="bg-green-700 text-white px-6 py-2 rounded-lg hover:bg-green-800 transition"
+                class="bg-white/30 backdrop-blur-sm text-white px-6 py-2 rounded-lg hover:bg-white/15 transition duration-300"
               >
                 Start
               </button>
               <button
                 id="pause-btn"
-                class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition"
+                class="bg-white/30 backdrop-blur-sm text-white px-6 py-2 rounded-lg hover:bg-white/15 transition duration-300"
               >
                 Pause
               </button>
-              <button
-                id="reset-btn"
-                class="bg-gray-400 text-white px-6 py-2 rounded-lg hover:bg-gray-500 transition"
-              >
-                Reset
-              </button>
             </div>
           </div>
-
-          <!-- Productivity Quote -->
-          <div class="mt-12 mb-8">
-            <p class="text-lg italic text-gray-600 animate-fadeIn">
-              “Slow down. Sip your coffee. The clovers grow quietly.” ☘️
-            </p>
+          <p class="text-black-200 italic text-center mb-10 mt-4 max-w-xl mx-auto leading-relaxed">
+            Take a deep breath, sip your warm cup of tea ☕,
+             and let yourself sink into this moment. Each tick of the timer is
+              a gentle reminder to focus, while the little tasks below help you
+               keep your thoughts organized. Don’t rush — every small step counts, 
+               and every completed task is a tiny victory 🌸✨. Let your cozy corner 
+               of productivity bloom, one mindful moment at a time.
+          </p>
+          
+          
+          <!-- To-Do List Section -->
+          <div class="bg-white/20 backdrop-blur-md shadow-dream rounded-2xl p-6 mt-10 max-w-md mx-auto text-white">
+            <h2 class="text-2xl text-black/80 font-semibold mb-4">To-Do List 🪶</h2>
+            <div class="flex mb-4">
+              <input
+                id="task-input"
+                type="text"
+                placeholder="Add a new task..."
+                class="flex-grow px-3 text-black py-2 rounded-l-lg bg-white/20 placeholder-black/60 outline-none"
+              />
+              <button
+                id="add-task-btn"
+                class="bg-white/30 hover:bg-white/15 transition text-black/60 px-4 py-2 rounded-r-lg"
+              >
+                Add
+              </button>
+            </div>
+            <ul id="task-list" class="space-y-2 max-h-60 overflow-y-auto"></ul>
           </div>
+          <br>
 
           <!-- Extra filler (for scroll test) -->
         </section>
@@ -390,4 +393,75 @@
       });
     });
   </script>
+  <script>
+    const taskInput = document.getElementById("task-input");
+    const addTaskBtn = document.getElementById("add-task-btn");
+    const taskList = document.getElementById("task-list");
+  
+    // Load saved tasks
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    renderTasks();
+  
+    // Add new task
+    addTaskBtn.addEventListener("click", addTask);
+    taskInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") addTask();
+    });
+  
+    function addTask() {
+      const text = taskInput.value.trim();
+      if (text === "") return;
+      const task = { id: Date.now(), text, completed: false };
+      tasks.push(task);
+      saveTasks();
+      renderTasks();
+      taskInput.value = "";
+    }
+  
+    // Toggle complete or delete
+    function renderTasks() {
+      taskList.innerHTML = "";
+      tasks.forEach((task) => {
+        const li = document.createElement("li");
+        li.className =
+          "flex justify-between items-center bg-white/20 px-4 py-2 rounded-lg transition text-black";
+  
+        const span = document.createElement("span");
+        span.textContent = task.text;
+        span.className = `flex-1 cursor-pointer transition ${
+          task.completed ? "line-through opacity-60" : ""
+        }`;
+        span.addEventListener("click", () => toggleTask(task.id));
+  
+        const delBtn = document.createElement("button");
+        delBtn.innerHTML = "✖";
+        delBtn.className =
+          "text-black/30 hover:text-red-400 transition ml-3";
+        delBtn.addEventListener("click", () => deleteTask(task.id));
+  
+        li.appendChild(span);
+        li.appendChild(delBtn);
+        taskList.appendChild(li);
+      });
+    }
+  
+    function toggleTask(id) {
+      tasks = tasks.map((t) =>
+        t.id === id ? { ...t, completed: !t.completed } : t
+      );
+      saveTasks();
+      renderTasks();
+    }
+  
+    function deleteTask(id) {
+      tasks = tasks.filter((t) => t.id !== id);
+      saveTasks();
+      renderTasks();
+    }
+  
+    function saveTasks() {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+  </script>
+  
 </html>
