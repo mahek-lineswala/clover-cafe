@@ -15,6 +15,18 @@
       rel="stylesheet"
     />
     <style>
+      @font-face {
+        font-family: "MyFont";
+        src: url("../assets/fonts/frenchcroissantdemo-eaven.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+      .myfont {
+      font-family: "MyFont", sans-serif;
+      }
+  
+      </style>
+    <style>
       @keyframes float {
         0%,
         100% {
@@ -143,15 +155,15 @@
         class="w-[75%] h-[80vh] rounded-3xl px-8 py-10 relative z-10 flex bg-transparent"
       >
         <!-- Sidebar Navigation -->
-        <aside class="ml-48 mt-2 border-green-800 rounded-l-2xl">
-          <nav class="text-center">
+        <aside class="ml-52 mt-2 border-green-800 rounded-l-2xl">
+          <nav class="text-left">
             <img
               src="./assets/images/tamannapfp-removebg-preview.png"
               alt="seal"
               class="w-32 h-32 object-cover mb-6 transition-transform duration-300"
             />
 
-            <ul class="space-y-6 text-lg font-serif text-gray-700">
+            <ul class="space-y-6 text-lg  text-gray-700">
               <li>
                 <a
                   href="index.html"
@@ -201,7 +213,7 @@
           class="w-3/4 h-full overflow-y-auto pl-6 pr-4 text-center font-serif mr-12 mt-4"
         >
           <h1
-            class="text-5xl font-title mb-6 text-green-800 drop-shadow-md animate-fadeIn animate-float"
+            class="text-5xl myfont mt-2 mb-6 text-green-800 drop-shadow-md animate-fadeIn animate-float"
           >
             ꒰ Get Working ꒱
           </h1>
@@ -211,7 +223,7 @@
 
           <!-- Focus Timer Card -->
           <div
-            class="bg-white/40 border border-gray-300 shadow-dream rounded-2xl p-8 max-w-md mx-auto animate-fadeIn"
+            class="bg-white/40 border shadow-dream rounded-2xl p-8 max-w-md mx-auto animate-fadeIn"
           >
             <p class="text-sm text-gray-500 mb-3">pomodoro-style timer ⏳</p>
             <h2 id="timer" class="text-6xl font-title text-green-800 mb-6">
