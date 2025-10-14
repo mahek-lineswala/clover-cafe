@@ -7,7 +7,20 @@
     <link rel="icon" href="./assets/images/cloveeee.jpg" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <style>
+      @font-face {
+        font-family: "MyFont";
+        src: url("../assets/fonts/frenchcroissantdemo-eaven.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+      .myfont {
+      font-family: "MyFont", sans-serif;
+      }
+  
+      </style>
    <style>
+    
     @keyframes floatScale {
   0%, 100% {
     transform: scale(1.15) translateY(0);
@@ -88,12 +101,12 @@
       >
         <div class="flex justify-center  mr-42 mb-8  w-full">
           <!-- Sidebar -->
-           <aside class=" ml-40  border-green-800  rounded-l-2xl ">
-          <nav class="text-center">
+           <aside class=" ml-44 mb-2  border-green-800  rounded-l-2xl ">
+          <nav class="text-left">
             <img src="./assets/images/tamannapfp-removebg-preview.png" alt="seal"
               class="w-32 h-32 object-cover mb-6 transition-transform duration-300 " />
 
-            <ul class="space-y-6 text-lg font-serif text-gray-700 ">
+            <ul class="space-y-6 text-lg text-gray-700 ">
               <li><a href="index.html" class="hover:text-green-700 transition-colors">home</a></li>
               <li><a href="get-working.html" class="hover:text-green-700 transition-colors "> workaholic</a></li>
               <li><a href="book-nook.html" class="hover:text-green-700 transition-colors">book nook</a></li>
@@ -115,7 +128,7 @@
                 display: none;
               }
             </style>
-            <h1 class="text-center text-4xl font-serif font-semibold mt-2 mb-4 float text-green-800 drop-shadow-md">
+            <h1 class="text-center text-4xl myfont font-semibold mt-2 mb-4 float text-green-800 drop-shadow-md">
               ꒰ Guest Book ꒱
             </h1>
             <p class="text-center mb-8 text-base sm:text-lg italic">

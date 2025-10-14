@@ -8,6 +8,18 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   <style>
+    @font-face {
+      font-family: "MyFont";
+      src: url("../assets/fonts/frenchcroissantdemo-eaven.ttf") format("truetype");
+      font-weight: normal;
+      font-style: normal;
+    }
+    .myfont {
+    font-family: "MyFont", sans-serif;
+    }
+
+    </style>
+  <style>
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-6px); }
@@ -34,6 +46,6 @@
 </head>
 
 <body class="min-h-screen bg-[url('./assets/images/hehe.png')] bg-cover bg-center text-gray-800 flex flex-col items-center px-4 py-8">
-
+<a href="index.html" class="myfont text-2xl text-white"> ❤️ A way back home ❤️</a>
 </body>
 </html>
