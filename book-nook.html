@@ -1,233 +1,550 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dragonfly Inn - BookNook </title>
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-  <link rel="stylesheet" href="./css/style.css" />
-  <link rel="icon" href="./assets/images/icon_updated-removebg-preview.png">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Playfair+Display&display=swap" rel="stylesheet" />
-  <style>
-    @font-face {
-      font-family: "MyFont";
-      src: url("../assets/fonts/frenchcroissantdemo-eaven.ttf") format("truetype");
-      font-weight: normal;
-      font-style: normal;
-    }
-    .myfont {
-    font-family: "MyFont", sans-serif;
-    }
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dragonfly Inn - BookNook </title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="icon" href="./assets/images/icon_updated-removebg-preview.png">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Playfair+Display&display=swap" rel="stylesheet" />
+    <style>
+      @font-face {
+        font-family: "MyFont";
+        src: url("../assets/fonts/frenchcroissantdemo-eaven.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+      .myfont {
+      font-family: "MyFont", sans-serif;
+      }
 
+      </style>
+    <style>
+      @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  /* base float */
+  .cup {
+    
+    filter: drop-shadow(0 0 0 transparent);
+  }
+
+  /* hover: scale + glow while float continues */
+  .cup:hover {
+    scale: 1.15; /* modern shorthand */
+    filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.8));
+  }
     </style>
-  <style>
-    @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
-/* base float */
-.cup {
-  
-  filter: drop-shadow(0 0 0 transparent);
-}
-
-/* hover: scale + glow while float continues */
-.cup:hover {
-  scale: 1.15; /* modern shorthand */
-  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.8));
-}
-  </style>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            serif: ['"Playfair Display"', 'serif'],
-            title: ['"DM Serif Display"', 'serif'],
-          },
-          boxShadow: {
-            'dream': '0 4px 20px rgba(0, 0, 0, 0.25)',
-          },
-          keyframes: {
-            fadeIn: {
-              '0%': { opacity: 0, transform: 'translateY(20px)' },
-              '100%': { opacity: 1, transform: 'translateY(0)' },
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              serif: ['"Playfair Display"', 'serif'],
+              title: ['"DM Serif Display"', 'serif'],
             },
-            float: {
-              '0%, 100%': { transform: 'translateY(0)' },
-              '50%': { transform: 'translateY(-8px)' },
+            boxShadow: {
+              'dream': '0 4px 20px rgba(0, 0, 0, 0.25)',
             },
-            glow: {
-              '0%, 100%': { opacity: 0.3 },
-              '50%': { opacity: 0.7 },
-            }
-          },
-          animation: {
-            fadeIn: 'fadeIn 1s ease-in-out',
-            float: 'float 3s ease-in-out infinite',
-            glow: 'glow 2s ease-in-out infinite',
-          },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: 0, transform: 'translateY(20px)' },
+                '100%': { opacity: 1, transform: 'translateY(0)' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-8px)' },
+              },
+              glow: {
+                '0%, 100%': { opacity: 0.3 },
+                '50%': { opacity: 0.7 },
+              }
+            },
+            animation: {
+              fadeIn: 'fadeIn 1s ease-in-out',
+              float: 'float 3s ease-in-out infinite',
+              glow: 'glow 2s ease-in-out infinite',
+            },
+          }
         }
       }
-    }
-  </script>
-</head>
+    </script>
+  </head>
 
-<body class="min-h-screen bg-[url('./assets/images/Untitled_design.png')] bg-cover bg-fixed bg-center text-gray-800 flex flex-col items-center py-12 px-4">
-  <img src="./assets/images/cup_crop.png" 
-     alt="Cup"
-     id="cup"
-     class="cup w-24 h-24 fixed right-12 top-12 z-10 transform transition-all duration-500 hover:animate-float cursor-pointer" />
+  <body class="min-h-screen bg-[url('./assets/images/Untitled_design.png')] bg-cover bg-fixed bg-center text-gray-800 flex flex-col items-center py-12 px-4">
+    <img src="./assets/images/cup_crop.png" 
+      alt="Cup"
+      id="cup"
+      class="cup w-24 h-24 fixed right-12 top-12 z-10 transform transition-all duration-500 hover:animate-float cursor-pointer" />
 
-    <!-- Audio element -->
-    <audio id="chime-sound" src="./assets/images/sounds/Wind Chimes.mp3" preload="auto"></audio>
-  <img src="./assets/images/Adobe_Express_-_file.png" alt="songs" id="profileImage"
-    class="cup w-12 h-12 fixed right-[23%] top-12 z-10 transform transition-all duration-500 cursor-pointer" />
-    <audio id="bgMusic" src="./assets/audios/honey_tea_lemon.mp3" loop></audio>
-  <main class="flex justify-center w-full h-full animate-fadeIn relative">
+      <!-- Audio element -->
+      <audio id="chime-sound" src="./assets/images/sounds/Wind Chimes.mp3" preload="auto"></audio>
+   
+      <audio id="bgMusic" src="./assets/audios/honey_tea_lemon.mp3" loop></audio>
+    <main class="flex justify-center w-full h-full animate-fadeIn relative">
 
-    <!-- Floating background icons -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
-      <div class="absolute top-10 left-12 text-green-500 opacity-50 animate-float">🍀</div>
-      <div class="absolute bottom-10 right-20 text-yellow-600 opacity-50 animate-glow">📖</div>
-      <div class="absolute top-1/3 right-16 text-green-400 opacity-50 animate-float">🍀</div>
-    </div>
-
-    <!-- Main content box -->
-    <div class="w-[55%] h-[80vh] rounded-3xl px-8 py-10 relative z-10 flex bg-transparent">
-
-      <div class="flex justify-center gap-16">
-        <!-- Sidebar -->
-        <aside class="ml-14 mt-2 mb-12 rounded-l-2xl ">
-          <nav class="text-left">
-            <img src="./assets/images/tamannapfp-removebg-preview.png" alt="seal"
-              class="w-44 h-32 object-cover mb-6 transition-transform duration-300 " />
-            <ul class="space-y-6 text-lg  text-gray-700">
-              <li><a href="index.html" class="hover:text-green-700 transition-colors">home</a></li>
-              <li><a href="get-working.html" class="hover:text-green-700 transition-colors">workaholic</a></li>
-              <li><a href="book-nook.html" class="text-green-700 font-semibold">book nook</a></li>
-              <li><a href="creator.html" class="hover:text-green-700 transition-colors">creator</a></li>
-              <li><a href="guest-book.html" class="hover:text-green-700 transition-colors">guest book</a></li>
-              <li><a href="cattos.html" class="hover:text-green-700 transition-colors">&lt;3 cattos</a></li>
-            </ul>
-          </nav>
-        </aside>
-
-        <!-- Main Section -->
-        <section class="w-full h-full overflow-y-auto pl-6 pr-4 text-center font-serif scrollbar-hide">
-          <style>
-            section::-webkit-scrollbar { display: none; }
-          </style>
-          <h1 class="text-5xl myfont mt-4 mb-8 text-brown-800 drop-shadow-md animate-fadeIn animate-float">Book Nook</h1>
-          <p class="text-gray-700 text-lg italic mb-10">A cozy corner for dreamers, readers, and late-night thinkers</p>
-
-          <!-- Books Grid -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6">
-            <!-- Book 1 -->
-            <div class="bg-white/40 border border-gray-300 rounded-2xl shadow-dream p-4 hover:scale-105 transition-transform duration-300 animate-fadeIn">
-              <img src="./assets/images/book1.jpg" alt="book 1" class="w-full h-60 object-cover rounded-lg mb-4 shadow-md" />
-              <h2 class="text-xl font-title text-green-800">The Secret Garden</h2>
-              <p class="text-sm text-gray-700 mt-2">A forgotten garden, a lonely girl, and the magic of rebirth. 🌸</p>
-            </div>
-
-            <!-- Book 2 -->
-            <div class="bg-white/40 border border-gray-300 rounded-2xl shadow-dream p-4 hover:scale-105 transition-transform duration-300 animate-fadeIn delay-200">
-              <img src="./assets/images/book2.jpg" alt="book 2" class="w-full h-60 object-cover rounded-lg mb-4 shadow-md" />
-              <h2 class="text-xl font-title text-green-800">Clover Café Tales</h2>
-              <p class="text-sm text-gray-700 mt-2">Stories brewed between soft clinks of coffee cups and quiet hearts. ☘️</p>
-            </div>
-
-            <!-- Book 3 -->
-            <div class="bg-white/40 border border-gray-300 rounded-2xl shadow-dream p-4 hover:scale-105 transition-transform duration-300 animate-fadeIn delay-500">
-              <img src="./assets/images/book3.jpg" alt="book 3" class="w-full h-60 object-cover rounded-lg mb-4 shadow-md" />
-              <h2 class="text-xl font-title text-green-800">Letters to the Moon</h2>
-              <p class="text-sm text-gray-700 mt-2">A dreamy journal of stargazing and love letters never sent. 🌙</p>
-            </div>
-          </div>
-
-          <!-- Reading Quote -->
-          <div class="mt-16 text-gray-600 text-lg italic animate-fadeIn">
-            “In this nook, time slows down — and the stories speak softly.” 📖
-          </div>
-
-          
-        </section>
+      <!-- Floating background icons -->
+      <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-10 left-12 text-green-500 opacity-50 animate-float">🍀</div>
+        <div class="absolute bottom-10 right-20 text-yellow-600 opacity-50 animate-glow">📖</div>
+        <div class="absolute top-1/3 right-16 text-green-400 opacity-50 animate-float">🍀</div>
       </div>
+
+      <!-- Main content box -->
+      <div class="w-[55%] h-[80vh] rounded-3xl px-8 py-10 relative z-10 flex bg-transparent">
+
+        <div class="flex justify-center gap-16">
+          <!-- Sidebar -->
+          <aside class="ml-14 mt-2 mb-12 rounded-l-2xl ">
+            <nav class="text-left">
+              <img src="./assets/images/tamannapfp-removebg-preview.png" alt="seal"
+                class="w-44 h-32 object-cover mb-6 transition-transform duration-300 " />
+              <ul class="space-y-6 text-lg  text-gray-700">
+                <li><a href="index.html" class="hover:text-green-700 transition-colors">Home</a></li>
+                <li><a href="get-working.html" class="hover:text-green-700 transition-colors">Workaholic</a></li>
+                <li><a href="book-nook.html" class="text-green-700 font-semibold">Book nook</a></li>
+                <li><a href="creator.html" class="hover:text-green-700 transition-colors">Creator</a></li>
+                <li><a href="guest-book.html" class="hover:text-green-700 transition-colors">Guest book</a></li>
+                <li><a href="cattos.html" class="hover:text-green-700 transition-colors">Cattos &lt;3</a></li>
+              </ul>
+            </nav>
+          </aside>
+
+          <!-- Main Section -->
+          <section class="w-full h-full overflow-y-auto pl-6 pr-4 text-center font-serif scrollbar-hide">
+            <style>
+              section::-webkit-scrollbar { display: none; }
+            </style>
+            <div class="max-w-2xl mx-auto p-4 space-y-5">
+              <!-- START: Book Nook - Dessert Pairing + Order + Centered Modal (with animation) -->
+<style>
+  /* Modal entrance animation (fade + slight zoom) */
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(-6px) scale(0.985); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .modal-open-anim {
+    animation: modalIn 220ms cubic-bezier(.2,.8,.2,1);
+  }
+
+  /* Smooth slide for pairing panel (height) */
+  .pairing-slide {
+    transition: max-height 220ms ease, opacity 180ms ease, padding 180ms ease;
+    overflow: hidden;
+  }
+</style>
+
+<div class=" max-w-2xl mx-auto p-4 space-y-5 text-[#6B4600]" id="book-nook-inner">
+  <h2 class="myfont text-5xl text-center">The Book Nook</h2>
+  <p class="text-center text-sm text-gray-600 mb-2">Tap a dessert to add it to your order. Tap again to remove. Use ▾ to peek at pairings.</p>
+
+  <!-- Cards container (populated by script) -->
+  <div id="menu-list" class="space-y-4"></div>
+
+  <!-- Order summary + Checkout -->
+  <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
+    <div class="flex items-center justify-between">
+      <div>
+        <h3 class="text-lg font-medium">Your Order</h3>
+        <p class="text-xs text-gray-500">Selected items appear here. Tap a card again to remove.</p>
+      </div>
+      <button id="checkout-btn" class="bg-emerald-600 text-white px-4 py-2 rounded-md hover:bg-emerald-700 disabled:opacity-60" disabled>
+        Checkout
+      </button>
     </div>
-  </main>
 
-  <script src="./js/script.js"></script>
-  <script>
-  const music = document.getElementById('bgMusic');
-  const profileImage = document.getElementById('profileImage');
-  let isPlaying = true;
+    <ul id="order-list" class="mt-3 space-y-2 text-sm" aria-live="polite">
+      <li class="text-xs text-gray-500">No items selected yet.</li>
+    </ul>
 
-  // Restore playback position + state when page loads
-  window.addEventListener('load', () => {
-    const lastTime = localStorage.getItem('musicTime');
-    const isPaused = localStorage.getItem('musicPaused') === 'true';
+    <div id="order-total" class="mt-3 text-sm font-semibold">Total: —</div>
+  </div>
+</div>
 
-    if (lastTime) {
-      music.currentTime = parseFloat(lastTime);
-    }
+<!-- Centered Checkout Modal -->
+<div id="checkout-modal" class="fixed inset-0 hidden z-50 flex items-center justify-center">
+  <!-- background overlay (darker + blur to avoid bright band) -->
+  <div id="modal-backdrop" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
 
-    const playPromise = music.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        console.warn("Autoplay might be blocked until user interacts.");
-      });
-    }
+  <!-- modal box -->
+  <div id="modal-box" class="relative bg-white rounded-2xl shadow-2xl max-w-xl w-[92%] sm:w-[80%] md:w-[60%] p-6 z-10 border border-gray-200">
+    <h3 class="text-2xl font-serif mb-2">Your Bill & Book Recommendations</h3>
+    <div id="modal-content" class="space-y-4 max-h-[60vh] overflow-auto text-sm"></div>
 
-    if (isPaused) {
-      music.pause();
-      isPlaying = false;
-    }
-  });
+    <div class="mt-4 flex gap-3 justify-end">
+      <button id="modal-close" class="px-4 py-2 rounded border">Close</button>
+      <button id="modal-confirm" class="px-4 py-2 rounded bg-emerald-600 text-white hover:bg-emerald-700">Confirm Order</button>
+    </div>
+  </div>
+</div>
 
-  // Save current position + state before leaving page
-  window.addEventListener('beforeunload', () => {
-    localStorage.setItem('musicTime', music.currentTime);
-    localStorage.setItem('musicPaused', music.paused);
-  });
-
-  // Toggle on click
-  profileImage.addEventListener('click', () => {
-    if (isPlaying) {
-      music.pause();
-      profileImage.classList.remove('playing');
-    } else {
-      music.play();
-      profileImage.classList.add('playing');
-    }
-    isPlaying = !isPlaying;
-  });
-</script>
-</body>
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const cup = document.getElementById('cup');
-      const chime = document.getElementById('chime-sound');
+(function(){
+  // ========== MENU definition ==========
+  const MENU = {
+    "cheesecake": {
+      title: "Blueberry Cheesecake",
+      price: 150,
+      mood: "Whimsical, lighthearted novels",
+      books: [
+        { title: "The Night Circus", author: "Erin Morgenstern" },
+        { title: "The Rosie Project", author: "Graeme Simsion" },
+        { title: "The Little Prince", author: "Antoine de Saint-Exupéry" }
+      ],
+      img: "/assets/images/cheesecake.png"
+    },
+    "black-coffee": {
+      title: "Black Coffee",
+      price: 60,
+      mood: "Existential classics",
+      books: [
+        { title: "The Stranger", author: "Albert Camus" },
+        { title: "Notes from Underground", author: "Fyodor Dostoevsky" },
+        { title: "Nausea", author: "Jean-Paul Sartre" }
+      ],
+      img: "/assets/images/blackcoffee.jpg"
+    },
+    "hot-chocolate": {
+      title: "Hot Chocolate",
+      price: 70,
+      mood: "Comfort reads & children's fiction",
+      books: [
+        { title: "The Wind in the Willows", author: "Kenneth Grahame" },
+        { title: "The House at Pooh Corner", author: "A.A. Milne" },
+        { title: "The Guernsey Literary and Potato Peel Pie Society", author: "Mary Ann Shaffer & Annie Barrows" }
+      ],
+      img: "/assets/images/hotchoco.jpg"
+    },
+    "brownie": {
+      title: "Chocolate Brownie",
+      price: 90,
+      mood: "Intense page-turners",
+      books: [
+        { title: "Gone Girl", author: "Gillian Flynn" },
+        { title: "The Girl with the Dragon Tattoo", author: "Stieg Larsson" },
+        { title: "Sharp Objects", author: "Gillian Flynn" }
+      ],
+      img: "/assets/images/brownie.png"
+    }
+  };
 
-      // Allow browser to unlock audio playback
-      document.body.addEventListener('click', () => {
-        chime.play();
-        chime.pause();
-      }, { once: true });
+  // ========== State ==========
+  const order = new Set();
 
-      // Play sound when mouse enters
-      cup.addEventListener('mouseenter', () => {
-        chime.currentTime = 0;
-        chime.play();
+  // ========== Refs ==========
+  const menuList = document.getElementById('menu-list');
+  const orderListEl = document.getElementById('order-list');
+  const orderTotalEl = document.getElementById('order-total');
+  const checkoutBtn = document.getElementById('checkout-btn');
+
+  const modal = document.getElementById('checkout-modal');
+  const modalBox = document.getElementById('modal-box');
+  const modalContent = document.getElementById('modal-content');
+  const modalClose = document.getElementById('modal-close');
+  const modalConfirm = document.getElementById('modal-confirm');
+  const modalBackdrop = document.getElementById('modal-backdrop');
+
+  // ======= Helpers =======
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, function(m) {
+      return ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[m];
+    });
+  }
+
+  // Format currency (digit-by-digit safety)
+  function formatCurrency(n) {
+    const s = String(Math.round(n)); // assume integer TL
+    return s.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " TL";
+  }
+
+  // ======= Render menu cards =======
+  function renderMenu() {
+    menuList.innerHTML = '';
+    Object.keys(MENU).forEach(key => {
+      const item = MENU[key];
+
+      const card = document.createElement('div');
+      card.className = 'bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden relative';
+
+      // header (selectable)
+      const header = document.createElement('button');
+      header.className = 'w-full flex items-center gap-4 p-4 text-left focus:outline-none';
+      header.setAttribute('aria-pressed', 'false');
+      header.setAttribute('data-key', key);
+
+      header.innerHTML = `
+        <img src="${escapeHtml(item.img)}" alt="${escapeHtml(item.title)}" class="w-20 h-20 object-cover rounded-xl shadow flex-shrink-0">
+        <div class="flex-1">
+          <div class="flex items-center justify-between gap-3">
+            <div>
+              <h3 class="text-lg font-semibold">${escapeHtml(item.title)}</h3>
+              <p class="text-xs italic text-gray-600">${escapeHtml(item.mood)}</p>
+            </div>
+            <div class="text-sm font-medium">${formatCurrency(item.price)}</div>
+          </div>
+          <p class="mt-2 text-xs text-gray-500">Tap card to add/remove. Use ▾ to view pairings.</p>
+        </div>
+      `;
+
+      // chevron to expand pairing
+      const chevron = document.createElement('button');
+      chevron.className = 'absolute right-3 top-3 text-xs p-1 rounded hover:bg-white/50';
+      chevron.setAttribute('aria-expanded', 'false');
+      chevron.innerHTML = '▾';
+      chevron.title = 'Toggle pairings';
+
+      // pairing panel with slide behaviour
+      const pairing = document.createElement('div');
+      pairing.className = 'pairing-slide hidden px-6 pb-4 text-sm';
+      pairing.style.maxHeight = '0px';
+      pairing.style.opacity = '0';
+      pairing.innerHTML = `
+        <p class="font-medium mb-2">Mood: ${escapeHtml(item.mood)}</p>
+        <ul class="list-disc list-inside space-y-1">
+          ${item.books.map(b => `<li><strong>${escapeHtml(b.title)}</strong> — ${escapeHtml(b.author)}</li>`).join('')}
+        </ul>
+      `;
+
+      // assemble
+      card.appendChild(header);
+      card.appendChild(chevron);
+      card.appendChild(pairing);
+      menuList.appendChild(card);
+
+      // ===== events =====
+      header.addEventListener('click', () => {
+        const key = header.getAttribute('data-key');
+        if (order.has(key)) {
+          order.delete(key);
+          header.classList.remove('ring-2', 'ring-emerald-400', 'bg-emerald-50');
+          header.setAttribute('aria-pressed', 'false');
+        } else {
+          order.add(key);
+          header.classList.add('ring-2', 'ring-emerald-400', 'bg-emerald-50');
+          header.setAttribute('aria-pressed', 'true');
+        }
+        updateOrderUI();
       });
 
-      // Stop sound when mouse leaves
-      cup.addEventListener('mouseleave', () => {
-        chime.pause();
-        chime.currentTime = 0; // rewind to start
+      // chevron: toggle pairing with a smooth height change
+      chevron.addEventListener('click', (evt) => {
+        evt.stopPropagation();
+        const expanded = chevron.getAttribute('aria-expanded') === 'true';
+        chevron.setAttribute('aria-expanded', String(!expanded));
+        togglePairingPanel(pairing, !expanded);
       });
     });
+  }
+
+  // Smooth expand/collapse (max-height trick)
+  function togglePairingPanel(panelEl, show) {
+    if (show) {
+      panelEl.classList.remove('hidden');
+      // measure natural height
+      panelEl.style.maxHeight = '0px';
+      panelEl.style.opacity = '0';
+      // force reflow then set to measured
+      const full = panelEl.scrollHeight + 'px';
+      requestAnimationFrame(() => {
+        panelEl.style.maxHeight = full;
+        panelEl.style.opacity = '1';
+      });
+    } else {
+      // collapse
+      panelEl.style.maxHeight = panelEl.scrollHeight + 'px';
+      requestAnimationFrame(() => {
+        panelEl.style.maxHeight = '0px';
+        panelEl.style.opacity = '0';
+      });
+      // after transition, hide to remove from tab order (optional)
+      setTimeout(() => {
+        panelEl.classList.add('hidden');
+      }, 240);
+    }
+  }
+
+  // ====== Update Order UI ======
+  function updateOrderUI() {
+    orderListEl.innerHTML = '';
+    if (order.size === 0) {
+      orderListEl.innerHTML = '<li class="text-xs text-gray-500">No items selected yet.</li>';
+      orderTotalEl.textContent = 'Total: —';
+      checkoutBtn.disabled = true;
+      return;
+    }
+
+    let subtotal = 0;
+    order.forEach(key => {
+      const item = MENU[key];
+      subtotal += Number(item.price);
+      const li = document.createElement('li');
+      li.className = 'flex items-center justify-between';
+      li.innerHTML = `<span>${escapeHtml(item.title)}</span><span class="text-sm font-medium">${formatCurrency(item.price)}</span>`;
+      orderListEl.appendChild(li);
+    });
+
+    orderTotalEl.textContent = 'Total: ' + formatCurrency(subtotal);
+    checkoutBtn.disabled = false;
+  }
+
+  // ===== Checkout Modal =====
+  function openCheckoutModal() {
+    modalContent.innerHTML = '';
+    let subtotal = 0;
+
+    order.forEach(key => {
+      const item = MENU[key];
+      subtotal += Number(item.price);
+
+      const block = document.createElement('div');
+      block.className = 'border rounded p-3';
+      block.innerHTML = `
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <div class="font-semibold">${escapeHtml(item.title)}</div>
+            <div class="text-xs italic text-gray-600 mb-2">${escapeHtml(item.mood)}</div>
+            <div class="text-xs">Recommended:</div>
+            <ul class="text-sm list-disc list-inside">
+              ${item.books.map(b => `<li><strong>${escapeHtml(b.title)}</strong> — ${escapeHtml(b.author)}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="text-sm font-medium">${formatCurrency(item.price)}</div>
+        </div>
+      `;
+      modalContent.appendChild(block);
+    });
+
+    const totalsBlock = document.createElement('div');
+    totalsBlock.className = 'mt-3 text-sm';
+    totalsBlock.innerHTML = `<div class="font-semibold">Subtotal: ${formatCurrency(subtotal)}</div>
+      <div class="text-xs text-gray-600 mt-1">We suggest choosing one book pairing per dessert on the receipt. (Client idea)</div>`;
+    modalContent.appendChild(totalsBlock);
+
+    // show modal, add animation class
+    modal.classList.remove('hidden');
+    modalBox.classList.add('modal-open-anim');
+    // small focus trap: focus first close button
+    modalClose.focus();
+    // prevent page scroll while modal open
+    document.documentElement.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    // hide and reset animation class
+    modalBox.classList.remove('modal-open-anim');
+    modal.classList.add('hidden');
+    document.documentElement.style.overflow = '';
+  }
+
+  function confirmOrder() {
+    // placeholder action: clear order and close modal
+    // Replace with AJAX/backend call or print receipt as needed
+    alert('Order confirmed! A book recommendation will be printed with your bill.');
+    order.clear();
+    renderMenu();
+    updateOrderUI();
+    closeModal();
+  }
+
+  // init
+  renderMenu();
+  updateOrderUI();
+
+  // events
+  checkoutBtn.addEventListener('click', openCheckoutModal);
+  modalClose.addEventListener('click', closeModal);
+  modalBackdrop.addEventListener('click', closeModal);
+  modalConfirm.addEventListener('click', confirmOrder);
+
+  // keyboard escape to close modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+      closeModal();
+    }
+  });
+})();
+</script>
+<!-- END: Book Nook - Dessert Pairing + Order + Centered Modal -->
+
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <script src="./js/script.js"></script>
+    <script>
+    const music = document.getElementById('bgMusic');
+    const profileImage = document.getElementById('profileImage');
+    let isPlaying = true;
+
+    // Restore playback position + state when page loads
+    window.addEventListener('load', () => {
+      const lastTime = localStorage.getItem('musicTime');
+      const isPaused = localStorage.getItem('musicPaused') === 'true';
+
+      if (lastTime) {
+        music.currentTime = parseFloat(lastTime);
+      }
+
+      const playPromise = music.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          console.warn("Autoplay might be blocked until user interacts.");
+        });
+      }
+
+      if (isPaused) {
+        music.pause();
+        isPlaying = false;
+      }
+    });
+
+    // Save current position + state before leaving page
+    window.addEventListener('beforeunload', () => {
+      localStorage.setItem('musicTime', music.currentTime);
+      localStorage.setItem('musicPaused', music.paused);
+    });
+
+    // Toggle on click
+    profileImage.addEventListener('click', () => {
+      if (isPlaying) {
+        music.pause();
+        profileImage.classList.remove('playing');
+      } else {
+        music.play();
+        profileImage.classList.add('playing');
+      }
+      isPlaying = !isPlaying;
+    });
   </script>
-</html>
+  </body>
+  <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const cup = document.getElementById('cup');
+        const chime = document.getElementById('chime-sound');
+
+        // Allow browser to unlock audio playback
+        document.body.addEventListener('click', () => {
+          chime.play();
+          chime.pause();
+        }, { once: true });
+
+        // Play sound when mouse enters
+        cup.addEventListener('mouseenter', () => {
+          chime.currentTime = 0;
+          chime.play();
+        });
+
+        // Stop sound when mouse leaves
+        cup.addEventListener('mouseleave', () => {
+          chime.pause();
+          chime.currentTime = 0; // rewind to start
+        });
+      });
+    </script>
+  </html>

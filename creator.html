@@ -103,8 +103,6 @@
 
     <!-- Audio element -->
     <audio id="chime-sound" src="./assets/images/sounds/Wind Chimes.mp3" preload="auto"></audio>
-  <img src="./assets/images/Adobe_Express_-_file.png" alt="songs" id="profileImage"
-    class="cup w-12 h-12 fixed right-[23%] top-12 z-10 transform transition-all duration-500 cursor-pointer" />
     <audio id="bgMusic" src="./assets/audios/honey_tea_lemon.mp3" loop></audio>
     <main
       class="flex justify-center w-[70%] h-[80vh] flex overflow-hidden fade-in mt-8"
@@ -118,42 +116,255 @@
               class="w-32 h-32 object-cover mb-6 transition-transform duration-300 " />
 
             <ul class="space-y-6 text-lg  text-gray-700 ">
-              <li><a href="index.html" class="hover:text-green-700 transition-colors">home</a></li>
-              <li><a href="get-working.html" class="hover:text-green-700 transition-colors "> workaholic</a></li>
-              <li><a href="book-nook.html" class="hover:text-green-700 transition-colors">book nook</a></li>
-              <li><a href="creator.html" class="text-green-700 font-semibold">creator</a></li>
-              <li><a href="guest-book.html" class="hover:text-green-700 transition-colors">guest book</a></li>
-              <li><a href="cattos.html" class="hover:text-green-700 transition-colors">&lt;3 cattos</a></li>
+              <li><a href="index.html" class="hover:text-green-700 transition-colors">Home</a></li>
+              <li><a href="get-working.html" class="hover:text-green-700 transition-colors "> Workaholic</a></li>
+              <li><a href="book-nook.html" class="hover:text-green-700 transition-colors">Book nook</a></li>
+              <li><a href="creator.html" class="text-green-700 font-semibold">Creator</a></li>
+              <li><a href="guest-book.html" class="hover:text-green-700 transition-colors">Guest book</a></li>
+              <li><a href="cattos.html" class="hover:text-green-700 transition-colors">Cattos &lt;3 </a></li>
             </ul>
           </nav>
         </aside>
 
         <!-- scrollable content -->
         <section
-          class="w-3/4 h-full ml-11 overflow-y-auto px-10 py-8 text-center font-serif"
+          class="w-3/4 h-[90%] ml-11 overflow-y-auto px-10 py-8 text-center font-serif"
         >
-          <h1 class="myfont mb-4 float text-brown-800 text-5xl  ">
-            Creator’s Corner
-          </h1>
-          <p class="mb-8 text-base italic">
-            A cozy space where ideas bloom and imagination dances 🌿
-          </p>
+        <style>
+              section::-webkit-scrollbar { display: none; }
+        </style>
+          <!-- START: Creator's Corner — Articles by the Author (replace the current inside of the scrollable <section>) -->
+          <h1 class="myfont mb-4 float text-[#6B4600] text-5xl">Creator’s Corner 💅</h1>
+          <p class="mb-4 text-base italic">A cozy space where ideas bloom and imagination dances 🌿</p>
 
-          <!-- Comment Section -->
-          <div class="mb-12">
-            <h2 class="text-2xl mb-3">💬 Leave a Thought</h2>
+          <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <input id="search-input" type="search" placeholder="Search titles..." class="px-3 py-2 rounded-md text-sm shadow-sm bg-white/60 backdrop-blur-sm focus:outline-none" />
+              <select id="tag-filter" class="px-3 py-2 rounded-md text-sm shadow-sm bg-white/60 backdrop-blur-sm">
+                <option value="">All tags</option>
+              </select>
+            </div>
+
+            <div class="text-sm text-gray-600">
+              <span id="saved-count">0</span> saved • <button id="clear-saved" class="underline text-xs">Clear saved</button>
+            </div>
           </div>
 
-          <div class="border-t border-gray-400 my-6"></div>
+          <!-- Articles list -->
+          <div id="articles-list" class="space-y-4 mb-8">
+            <!-- JS will render article cards here -->
+          </div>
 
-          <!-- Add more filler to test scroll behaviour -->
-          <p class="mb-6">
-            If you add more content here, the scroll will appear *inside the
-            napkin only* 🌸
-          </p>
-          <p class="mb-6">
-            This ensures the overall layout stays cozy and contained.
-          </p>
+          <!-- Template fallback when no articles -->
+          <div id="no-results" class="hidden text-center text-gray-500">
+            No articles found. Try a different search or tag.
+          </div>
+
+          <!-- Example data + scripts -->
+          <script>
+          (function () {
+            // ===== Example articles (edit or load from backend) =====
+            const ARTICLES = [
+              {
+                id: "a1",
+                title: "The Quiet Joy of Small Narratives",
+                date: "2025-04-10",
+                tags: ["essays", "writing"],
+                readTime: "6 min",
+                excerpt: "Short stories and micro-essays hold a gentle power — they demand attention and reward quietly. Here’s why small narratives matter.",
+                body: "<p>Small narratives are compact forces. They let the reader rest in a single mood and can be reread easily. In this piece I explore why tiny stories stick with us...</p>"
+              },
+              {
+                id: "a2",
+                title: "Tea, Memory, and the Library at Dusk",
+                date: "2025-03-02",
+                tags: ["personal", "memoir"],
+                readTime: "4 min",
+                excerpt: "A short piece on the smell of old paper, the comfort of tea, and the library window that taught me patience.",
+                body: "<p>When the light falls just right on the reading desk I memorised how silence looks. This is about learning to pause...</p>"
+              },
+              {
+                id: "a3",
+                title: "A Beginner’s Guide to Loving Essays",
+                date: "2025-02-14",
+                tags: ["howto", "reading"],
+                readTime: "5 min",
+                excerpt: "Not sure where to start with essays? Here's a tiny guide to help you fall in love with them (spoiler: it begins with curiosity).",
+                body: "<p>Essays are the friendliest gate to ideas. Start with short ones, read aloud, mark a paragraph that stops you — little rituals build the habit...</p>"
+              }
+              // add more items as needed
+            ];
+
+            // ===== localStorage keys =====
+            const STORAGE_KEY = 'creatorBookmarks_v1';
+
+            // ===== Cache DOM refs =====
+            const elList = document.getElementById('articles-list');
+            const elSearch = document.getElementById('search-input');
+            const elTag = document.getElementById('tag-filter');
+            const elNo = document.getElementById('no-results');
+            const elSavedCount = document.getElementById('saved-count');
+            const elClearSaved = document.getElementById('clear-saved');
+
+            // ===== Helpers =====
+            function loadSaved() {
+              try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                return raw ? new Set(JSON.parse(raw)) : new Set();
+              } catch (e) {
+                return new Set();
+              }
+            }
+            function saveSaved(set) {
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(set)));
+            }
+            function escapeHtml(s) {
+              return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]);
+            }
+
+            // populate tag filter
+            function populateTags() {
+              const tags = new Set();
+              ARTICLES.forEach(a => (a.tags || []).forEach(t => tags.add(t)));
+              // clear existing except default
+              elTag.innerHTML = '<option value="">All tags</option>';
+              Array.from(tags).sort().forEach(tag => {
+                const opt = document.createElement('option');
+                opt.value = tag;
+                opt.textContent = tag;
+                elTag.appendChild(opt);
+              });
+            }
+
+            // render list based on search + filter
+            function renderList() {
+              const q = elSearch.value.trim().toLowerCase();
+              const tag = elTag.value;
+              const saved = loadSaved();
+
+              const filtered = ARTICLES.filter(a => {
+                const okSearch = q === '' || a.title.toLowerCase().includes(q);
+                const okTag = tag === '' || (a.tags || []).includes(tag);
+                return okSearch && okTag;
+              });
+
+              elList.innerHTML = '';
+              if (filtered.length === 0) {
+                elNo.classList.remove('hidden');
+                elList.classList.add('hidden');
+              } else {
+                elNo.classList.add('hidden');
+                elList.classList.remove('hidden');
+
+                filtered.forEach(a => {
+                  const card = document.createElement('article');
+                  card.className = 'bg-white/65 backdrop-blur-sm rounded-2xl p-4 shadow-md text-left';
+
+                  card.innerHTML = `
+                    <div class="flex items-start justify-between gap-4">
+                      <div class="flex-1">
+                        <div class="flex items-baseline gap-3">
+                          <h3 class="text-xl font-semibold">${escapeHtml(a.title)}</h3>
+                          <span class="text-xs text-gray-500">${escapeHtml(a.date)} • ${escapeHtml(a.readTime)}</span>
+                        </div>
+                        <div class="mt-2 text-sm text-gray-700 italic">${escapeHtml(a.excerpt)}</div>
+
+                        <div class="mt-3 text-xs text-gray-600 flex flex-wrap gap-2">
+                          ${(a.tags || []).map(t => `<span class="px-2 py-1 rounded-full bg-white/30 text-xs">${escapeHtml(t)}</span>`).join('')}
+                        </div>
+                      </div>
+
+                      <div class="flex flex-col items-end gap-2">
+                        <button class="bookmark-btn px-2 py-1 rounded-md text-sm" data-id="${escapeHtml(a.id)}" aria-pressed="false" title="Save for later">
+                          ♡ Save
+                        </button>
+                        <button class="readmore-btn text-xs underline" data-id="${escapeHtml(a.id)}">Read more</button>
+                      </div>
+                    </div>
+
+                    <div class="article-body mt-3 text-sm text-gray-800 hidden"></div>
+                  `;
+
+                  // body injection safe-ish (we keep body as small HTML in data — user can sanitize backend)
+                  const bodyEl = card.querySelector('.article-body');
+                  bodyEl.innerHTML = a.body || `<p>${escapeHtml(a.excerpt)}</p>`;
+
+                  elList.appendChild(card);
+
+                  // wire buttons
+                  const bmBtn = card.querySelector('.bookmark-btn');
+                  const rmBtn = card.querySelector('.readmore-btn');
+
+                  // set initial bookmark UI
+                  if (saved.has(a.id)) {
+                    bmBtn.classList.add('bg-emerald-100', 'text-emerald-700');
+                    bmBtn.textContent = '♥ Saved';
+                    bmBtn.setAttribute('aria-pressed', 'true');
+                  } else {
+                    bmBtn.classList.remove('bg-emerald-100', 'text-emerald-700');
+                    bmBtn.textContent = '♡ Save';
+                    bmBtn.setAttribute('aria-pressed', 'false');
+                  }
+
+                  bmBtn.addEventListener('click', () => {
+                    const s = loadSaved();
+                    if (s.has(a.id)) {
+                      s.delete(a.id);
+                      bmBtn.classList.remove('bg-emerald-100', 'text-emerald-700');
+                      bmBtn.textContent = '♡ Save';
+                      bmBtn.setAttribute('aria-pressed', 'false');
+                    } else {
+                      s.add(a.id);
+                      bmBtn.classList.add('bg-emerald-100', 'text-emerald-700');
+                      bmBtn.textContent = '♥ Saved';
+                      bmBtn.setAttribute('aria-pressed', 'true');
+                    }
+                    saveSaved(s);
+                    updateSavedCount();
+                  });
+
+                  rmBtn.addEventListener('click', () => {
+                    // toggle expand/collapse
+                    if (bodyEl.classList.contains('hidden')) {
+                      bodyEl.classList.remove('hidden');
+                      rmBtn.textContent = 'Show less';
+                    } else {
+                      bodyEl.classList.add('hidden');
+                      rmBtn.textContent = 'Read more';
+                      // scroll into view nicely (optional)
+                      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                  });
+                });
+              }
+
+              updateSavedCount();
+            }
+
+            function updateSavedCount() {
+              const s = loadSaved();
+              elSavedCount.textContent = s.size;
+            }
+
+            // Clear saved
+            elClearSaved.addEventListener('click', (e) => {
+              e.preventDefault();
+              if (!confirm('Clear all saved articles?')) return;
+              localStorage.removeItem(STORAGE_KEY);
+              renderList();
+            });
+
+            // Wire search + filter
+            elSearch.addEventListener('input', () => renderList());
+            elTag.addEventListener('change', () => renderList());
+
+            // init
+            populateTags();
+            renderList();
+          })();
+          </script>
+          <!-- END: Creator's Corner — Articles by the Author -->
+
         </section>
       </div>
     </main>
