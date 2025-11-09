@@ -132,16 +132,40 @@
     animation: modalIn 220ms cubic-bezier(.2,.8,.2,1);
   }
 
-  /* Smooth slide for pairing panel (height) */
-  .pairing-slide {
-    transition: max-height 220ms ease, opacity 180ms ease, padding 180ms ease;
-    overflow: hidden;
+  /* Recommendation popup animation */
+  @keyframes popIn {
+    from { 
+      opacity: 0; 
+      transform: translateY(-20px) scale(0.95); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0) scale(1); 
+    }
+  }
+  .rec-open-anim {
+    animation: popIn 400ms cubic-bezier(.2,.8,.2,1);
+  }
+
+  /* Book card entrance animation */
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .book-card-anim {
+    animation: slideInUp 500ms ease-out forwards;
   }
 </style>
 
 <div class=" max-w-2xl mx-auto p-4 space-y-5 text-[#6B4600]" id="book-nook-inner">
   <h2 class="myfont text-5xl text-center">The Book Nook</h2>
-  <p class="text-center text-sm text-gray-600 mb-2">Tap a dessert to add it to your order. Tap again to remove. Use ▾ to peek at pairings.</p>
+  <p class="text-center text-sm text-gray-600 mb-2">Tap a dessert to add it to your order. Tap again to remove.</p>
 
   <!-- Cards container (populated by script) -->
   <div id="menu-list" class="space-y-4"></div>
@@ -173,12 +197,42 @@
 
   <!-- modal box -->
   <div id="modal-box" class="relative bg-white rounded-2xl shadow-2xl max-w-xl w-[92%] sm:w-[80%] md:w-[60%] p-6 z-10 border border-gray-200">
-    <h3 class="text-2xl font-serif mb-2">Your Bill & Book Recommendations</h3>
+    <h3 class="text-2xl font-serif mb-2">Your Order</h3>
     <div id="modal-content" class="space-y-4 max-h-[60vh] overflow-auto text-sm"></div>
 
     <div class="mt-4 flex gap-3 justify-end">
       <button id="modal-close" class="px-4 py-2 rounded border">Close</button>
-      <button id="modal-confirm" class="px-4 py-2 rounded bg-emerald-600 text-white hover:bg-emerald-700">Confirm Order</button>
+      <button id="modal-confirm" class="px-4 py-2 rounded bg-emerald-600 text-white hover:bg-emerald-700">Get Book Recommendations</button>
+    </div>
+  </div>
+</div>
+
+<!-- Book Recommendations Popup -->
+<div id="recommendations-popup" class="fixed inset-0 hidden z-[60] flex items-center justify-center">
+  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="rec-backdrop"></div>
+  
+  <div id="rec-box" class="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-[95%] sm:w-[85%] md:w-[70%] p-8 z-10 border border-gray-200">
+    <!-- Header with decorative elements -->
+    <div class="text-center mb-6">
+      <div class="text-4xl mb-2">📚✨</div>
+      <h2 class="myfont text-4xl text-emerald-800 mb-2">Your Perfect Reads</h2>
+      <p class="text-sm text-gray-600 italic">Curated just for your tastes</p>
+    </div>
+
+    <!-- Loading state -->
+    <div id="rec-loading" class="text-center py-12">
+      <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-emerald-200 border-t-emerald-600 mb-4"></div>
+      <p class="text-gray-600">Finding the perfect books for you...</p>
+    </div>
+
+    <!-- Recommendations content -->
+    <div id="rec-content" class="hidden space-y-4 max-h-[60vh] overflow-auto"></div>
+
+    <!-- Close button -->
+    <div class="mt-6 text-center">
+      <button id="rec-close" class="px-6 py-3 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition-all shadow-md">
+        Close & Enjoy Reading 🍀
+      </button>
     </div>
   </div>
 </div>
@@ -196,7 +250,7 @@
         { title: "The Rosie Project", author: "Graeme Simsion" },
         { title: "The Little Prince", author: "Antoine de Saint-Exupéry" }
       ],
-      img: "/assets/images/cheesecake.png"
+      img: "./assets/images/cheesecake.png"
     },
     "black-coffee": {
       title: "Black Coffee",
@@ -207,7 +261,7 @@
         { title: "Notes from Underground", author: "Fyodor Dostoevsky" },
         { title: "Nausea", author: "Jean-Paul Sartre" }
       ],
-      img: "/assets/images/blackcoffee.jpg"
+      img: "./assets/images/blackcoffee.jpg"
     },
     "hot-chocolate": {
       title: "Hot Chocolate",
@@ -218,7 +272,7 @@
         { title: "The House at Pooh Corner", author: "A.A. Milne" },
         { title: "The Guernsey Literary and Potato Peel Pie Society", author: "Mary Ann Shaffer & Annie Barrows" }
       ],
-      img: "/assets/images/hotchoco.jpg"
+      img: "./assets/images/hotchoco.jpg"
     },
     "brownie": {
       title: "Chocolate Brownie",
@@ -229,7 +283,7 @@
         { title: "The Girl with the Dragon Tattoo", author: "Stieg Larsson" },
         { title: "Sharp Objects", author: "Gillian Flynn" }
       ],
-      img: "/assets/images/brownie.png"
+      img: "./assets/images/brownie.png"
     }
   };
 
@@ -287,33 +341,11 @@
             </div>
             <div class="text-sm font-medium">${formatCurrency(item.price)}</div>
           </div>
-          <p class="mt-2 text-xs text-gray-500">Tap card to add/remove. Use ▾ to view pairings.</p>
         </div>
-      `;
-
-      // chevron to expand pairing
-      const chevron = document.createElement('button');
-      chevron.className = 'absolute right-3 top-3 text-xs p-1 rounded hover:bg-white/50';
-      chevron.setAttribute('aria-expanded', 'false');
-      chevron.innerHTML = '▾';
-      chevron.title = 'Toggle pairings';
-
-      // pairing panel with slide behaviour
-      const pairing = document.createElement('div');
-      pairing.className = 'pairing-slide hidden px-6 pb-4 text-sm';
-      pairing.style.maxHeight = '0px';
-      pairing.style.opacity = '0';
-      pairing.innerHTML = `
-        <p class="font-medium mb-2">Mood: ${escapeHtml(item.mood)}</p>
-        <ul class="list-disc list-inside space-y-1">
-          ${item.books.map(b => `<li><strong>${escapeHtml(b.title)}</strong> — ${escapeHtml(b.author)}</li>`).join('')}
-        </ul>
       `;
 
       // assemble
       card.appendChild(header);
-      card.appendChild(chevron);
-      card.appendChild(pairing);
       menuList.appendChild(card);
 
       // ===== events =====
@@ -330,42 +362,7 @@
         }
         updateOrderUI();
       });
-
-      // chevron: toggle pairing with a smooth height change
-      chevron.addEventListener('click', (evt) => {
-        evt.stopPropagation();
-        const expanded = chevron.getAttribute('aria-expanded') === 'true';
-        chevron.setAttribute('aria-expanded', String(!expanded));
-        togglePairingPanel(pairing, !expanded);
-      });
     });
-  }
-
-  // Smooth expand/collapse (max-height trick)
-  function togglePairingPanel(panelEl, show) {
-    if (show) {
-      panelEl.classList.remove('hidden');
-      // measure natural height
-      panelEl.style.maxHeight = '0px';
-      panelEl.style.opacity = '0';
-      // force reflow then set to measured
-      const full = panelEl.scrollHeight + 'px';
-      requestAnimationFrame(() => {
-        panelEl.style.maxHeight = full;
-        panelEl.style.opacity = '1';
-      });
-    } else {
-      // collapse
-      panelEl.style.maxHeight = panelEl.scrollHeight + 'px';
-      requestAnimationFrame(() => {
-        panelEl.style.maxHeight = '0px';
-        panelEl.style.opacity = '0';
-      });
-      // after transition, hide to remove from tab order (optional)
-      setTimeout(() => {
-        panelEl.classList.add('hidden');
-      }, 240);
-    }
   }
 
   // ====== Update Order UI ======
@@ -407,11 +404,7 @@
         <div class="flex items-start justify-between gap-3">
           <div>
             <div class="font-semibold">${escapeHtml(item.title)}</div>
-            <div class="text-xs italic text-gray-600 mb-2">${escapeHtml(item.mood)}</div>
-            <div class="text-xs">Recommended:</div>
-            <ul class="text-sm list-disc list-inside">
-              ${item.books.map(b => `<li><strong>${escapeHtml(b.title)}</strong> — ${escapeHtml(b.author)}</li>`).join('')}
-            </ul>
+            <div class="text-xs italic text-gray-600">${escapeHtml(item.mood)}</div>
           </div>
           <div class="text-sm font-medium">${formatCurrency(item.price)}</div>
         </div>
@@ -421,8 +414,7 @@
 
     const totalsBlock = document.createElement('div');
     totalsBlock.className = 'mt-3 text-sm';
-    totalsBlock.innerHTML = `<div class="font-semibold">Subtotal: ${formatCurrency(subtotal)}</div>
-      <div class="text-xs text-gray-600 mt-1">We suggest choosing one book pairing per dessert on the receipt. (Client idea)</div>`;
+    totalsBlock.innerHTML = `<div class="font-semibold">Subtotal: ${formatCurrency(subtotal)}</div>`;
     modalContent.appendChild(totalsBlock);
 
     // show modal, add animation class
@@ -441,14 +433,105 @@
     document.documentElement.style.overflow = '';
   }
 
-  function confirmOrder() {
-    // placeholder action: clear order and close modal
-    // Replace with AJAX/backend call or print receipt as needed
-    alert('Order confirmed! A book recommendation will be printed with your bill.');
+  async function confirmOrder() {
+    // Close checkout modal
+    closeModal();
+    
+    // Open recommendations popup with loading state
+    const recPopup = document.getElementById('recommendations-popup');
+    const recBox = document.getElementById('rec-box');
+    const recLoading = document.getElementById('rec-loading');
+    const recContent = document.getElementById('rec-content');
+    
+    recPopup.classList.remove('hidden');
+    recBox.classList.add('rec-open-anim');
+    recLoading.classList.remove('hidden');
+    recContent.classList.add('hidden');
+    document.documentElement.style.overflow = 'hidden';
+
+    // Prepare order data for API
+    const orderItems = [];
+    order.forEach(key => {
+      const item = MENU[key];
+      orderItems.push({
+        title: item.title,
+        mood: item.mood
+      });
+    });
+
+    try {
+      const response = await fetch('http://localhost:3000/recommend-books-gemini', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ orderItems }),
+      });
+
+      const result = await response.json();
+
+      if (result.success && result.recommendations) {
+        // Hide loading, show recommendations
+        recLoading.classList.add('hidden');
+        recContent.classList.remove('hidden');
+        
+        // Display recommendations
+        recContent.innerHTML = '';
+        result.recommendations.forEach((book, index) => {
+          const bookCard = document.createElement('div');
+          bookCard.className = 'bg-white rounded-xl p-5 shadow-md border border-gray-200 book-card-anim';
+          bookCard.style.animationDelay = `${index * 150}ms`;
+          bookCard.style.opacity = '0';
+          
+          bookCard.innerHTML = `
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-2xl font-bold text-emerald-700">
+                ${index + 1}
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl font-serif font-semibold text-gray-900 mb-1">${escapeHtml(book.title)}</h3>
+                <p class="text-sm text-gray-600 mb-2">by ${escapeHtml(book.author)}</p>
+                ${book.reason ? `<p class="text-sm text-gray-700 italic">"${escapeHtml(book.reason)}"</p>` : ''}
+              </div>
+            </div>
+          `;
+          recContent.appendChild(bookCard);
+        });
+      } else {
+        // Error state
+        recLoading.classList.add('hidden');
+        recContent.classList.remove('hidden');
+        recContent.innerHTML = `
+          <div class="text-center py-8">
+            <p class="text-gray-600 mb-4">Oops! We couldn't fetch recommendations right now.</p>
+            <p class="text-sm text-gray-500">Please try again later or ask our staff for suggestions!</p>
+          </div>
+        `;
+      }
+    } catch (error) {
+      console.error('Error fetching recommendations:', error);
+      recLoading.classList.add('hidden');
+      recContent.classList.remove('hidden');
+      recContent.innerHTML = `
+        <div class="text-center py-8">
+          <p class="text-gray-600 mb-4">Couldn't connect to our recommendation service.</p>
+          <p class="text-sm text-gray-500">Make sure the backend server is running!</p>
+        </div>
+      `;
+    }
+  }
+
+  function closeRecommendationsPopup() {
+    const recPopup = document.getElementById('recommendations-popup');
+    const recBox = document.getElementById('rec-box');
+    recBox.classList.remove('rec-open-anim');
+    recPopup.classList.add('hidden');
+    document.documentElement.style.overflow = '';
+    
+    // Clear order after viewing recommendations
     order.clear();
     renderMenu();
     updateOrderUI();
-    closeModal();
   }
 
   // init
@@ -461,10 +544,18 @@
   modalBackdrop.addEventListener('click', closeModal);
   modalConfirm.addEventListener('click', confirmOrder);
 
-  // keyboard escape to close modal
+  // Recommendation popup events
+  document.getElementById('rec-close').addEventListener('click', closeRecommendationsPopup);
+  document.getElementById('rec-backdrop').addEventListener('click', closeRecommendationsPopup);
+
+  // keyboard escape to close modals
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-      closeModal();
+    if (e.key === 'Escape') {
+      if (!document.getElementById('recommendations-popup').classList.contains('hidden')) {
+        closeRecommendationsPopup();
+      } else if (!modal.classList.contains('hidden')) {
+        closeModal();
+      }
     }
   });
 })();

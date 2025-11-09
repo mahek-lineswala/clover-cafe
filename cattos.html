@@ -47,5 +47,57 @@
 
 <body class="min-h-screen bg-[url('./assets/images/hehe.png')] bg-cover bg-center text-gray-800 flex flex-col items-center px-4 py-8">
 <a href="index.html" class="myfont text-2xl text-white"> ❤️ A way back home ❤️</a>
+
+  <!-- Laugh audio: play once when page opens. If autoplay is blocked, will play on first user interaction -->
+  <audio id="cat-laugh" src="./assets/audios/laught-muehehehe.mp3" preload="auto"></audio>
+
+  <script>
+    (function(){
+      const laugh = document.getElementById('cat-laugh');
+      if (!laugh) return;
+      let played = false;
+
+      function cleanup() {
+        document.removeEventListener('click', onInteraction);
+        document.removeEventListener('keydown', onInteraction);
+        document.removeEventListener('touchstart', onInteraction);
+      }
+
+      function onInteraction() {
+        if (played) return;
+        laugh.currentTime = 0;
+        laugh.play().catch(() => {});
+        played = true;
+        cleanup();
+      }
+
+      function tryPlayOnce() {
+        laugh.currentTime = 0;
+        const p = laugh.play();
+        if (p && typeof p.then === 'function') {
+          p.then(() => {
+            played = true;
+            cleanup();
+          }).catch(() => {
+            // Autoplay prevented — wait for first user interaction
+            document.addEventListener('click', onInteraction, { once: true });
+            document.addEventListener('keydown', onInteraction, { once: true });
+            document.addEventListener('touchstart', onInteraction, { once: true });
+          });
+        } else {
+          // play() returned undefined or not a promise — assume played
+          played = true;
+          cleanup();
+        }
+      }
+
+      // Try to play after DOM ready
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        tryPlayOnce();
+      } else {
+        document.addEventListener('DOMContentLoaded', tryPlayOnce);
+      }
+    })();
+  </script>
 </body>
 </html>
